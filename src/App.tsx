@@ -310,24 +310,7 @@ export default function App() {
     setActivityLog([activityMsg, ...activityLog]);
   };
 
-  const handleSyncMoodleCourses = (newCourses: Course[]) => {
-    const updatedCourses = [...courses];
-    newCourses.forEach(newC => {
-      if (!updatedCourses.some(c => c.id === newC.id)) {
-        updatedCourses.unshift(newC);
-      }
-    });
-    setCourses(updatedCourses);
 
-    const logVals = newCourses.map(c => ({
-      id: `act-${Date.now()}-${c.id}`,
-      text: `Synchronized Moodle course: "${c.title}" [${c.code}]`,
-      time: 'Just now',
-      course: c.title,
-      type: 'grade'
-    }));
-    setActivityLog([...logVals, ...activityLog]);
-  };
 
   const unreadCount = chats.reduce((total, c) => total + c.unreadCount, 0);
 
@@ -336,7 +319,7 @@ export default function App() {
   }
 
   return (
-    <div id="moodle_scholar_root" className="min-h-screen bg-surface flex flex-col lg:flex-row font-sans selection:bg-primary/20 selection:text-primary">
+    <div id="brainy_scholar_root" className="min-h-screen bg-surface flex flex-col lg:flex-row font-sans selection:bg-primary/20 selection:text-primary">
       
       {/* SIDEBAR ON DESKTOP & FLIABLE DRAWER FOR MOBILE */}
       <aside 
@@ -626,7 +609,7 @@ export default function App() {
               libraryBooks={books}
               onNavigate={handleNavigate}
               onResumeCourse={handleResumeCourse}
-              onSyncMoodleCourses={handleSyncMoodleCourses}
+              currentUser={userProfile}
             />
           )}
 
@@ -664,7 +647,7 @@ export default function App() {
           )}
 
           {activeTab === 'feedback' && (
-            <FeedbackView />
+            <FeedbackView currentUser={userProfile} courses={courses} />
           )}
 
           {activeTab === 'settings' && (

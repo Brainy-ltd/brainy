@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Course, Book } from '../types';
+import { Course, Book, UserProfile } from '../types';
 import { 
-  Filter, 
   Search, 
   Bookmark, 
   MoreVertical, 
@@ -10,11 +9,10 @@ import {
   School,
   Plus,
   BookOpen,
-  RefreshCw,
-  Check,
-  AlertCircle,
-  Database,
-  Key
+  MessageSquare,
+  Star,
+  CheckCircle2,
+  X
 } from 'lucide-react';
 
 interface MyCoursesViewProps {
@@ -22,7 +20,7 @@ interface MyCoursesViewProps {
   libraryBooks: Book[];
   onNavigate: (tab: any) => void;
   onResumeCourse: (courseId: string) => void;
-  onSyncMoodleCourses?: (newCourses: Course[]) => void;
+  currentUser?: UserProfile;
 }
 
 export function MyCoursesView({
@@ -30,98 +28,75 @@ export function MyCoursesView({
   libraryBooks,
   onNavigate,
   onResumeCourse,
-  onSyncMoodleCourses
+  currentUser
 }: MyCoursesViewProps) {
   const [activeTab, setActiveTab] = useState<'current' | 'past' | 'inprogress'>('current');
   const [searchQuery, setSearchQuery] = useState('');
   const [bookmarkedList, setBookmarkedList] = useState<string[]>(['c1']);
 
-  // Moodle REST API Sync States
-  const [showMoodlePanel, setShowMoodlePanel] = useState(false);
-  const [moodleUrl, setMoodleUrl] = useState('https://brainy.moodlecloud.com/');
-  const [moodleToken, setMoodleToken] = useState('0872cddfbc41e4829151afab58383146');
-  const [courseFilter, setCourseFilter] = useState('');
-  const [isSyncing, setIsSyncing] = useState(false);
-  const [syncStatus, setSyncStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [syncMessage, setSyncMessage] = useState('');
-  const [connectionType, setConnectionType] = useState<'none' | 'sandbox' | 'live'>('none');
+  // Course Feedback Modal States
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [selectedCourseForFeedback, setSelectedCourseForFeedback] = useState<Course | null>(null);
+  const [feedbackText, setFeedbackText] = useState('');
+  const [feedbackRating, setFeedbackRating] = useState(5);
+  const [feedbackClassification, setFeedbackClassification] = useState<'Problem' | 'Suggestion' | 'User Experience'>('Suggestion');
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+  const [feedbackError, setFeedbackError] = useState('');
 
-  const handleMoodleSync = async (useSandbox: boolean) => {
-    setIsSyncing(true);
-    setSyncStatus('idle');
-    setSyncMessage('Authenticating with Moodle Web Services REST endpoint...');
-    
-    // Professional Multi-stage logs simulation
-    setTimeout(() => {
-      setSyncMessage('Resolving token credentials & course timelines from moodlewsrestformat...');
-    }, 600);
-
-    try {
-      setTimeout(async () => {
-        const response = await fetch('/api/moodle/sync', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            moodleUrl: useSandbox ? '' : moodleUrl,
-            token: useSandbox ? '' : moodleToken,
-            useSandbox
-          })
-        });
-
-        const data = await response.json();
-        setIsSyncing(false);
-
-        if (data.success) {
-          let synchronizedCourses = data.courses || [];
-          let filterAppliedMessage = data.message;
-
-          if (courseFilter.trim()) {
-            const filterLower = courseFilter.toLowerCase().trim();
-            synchronizedCourses = synchronizedCourses.filter((c: any) => {
-              const matchesTitle = c.title.toLowerCase().includes(filterLower);
-              const matchesDesc = c.description.toLowerCase().includes(filterLower);
-              const matchesCode = c.code.toLowerCase().includes(filterLower);
-              
-              // Intelligent synonyms/alias matching for common "IT" search queries
-              const isItQuery = filterLower === 'it' || filterLower === 'information technology' || filterLower === 'tech';
-              const matchesItKeywords = isItQuery && (
-                c.title.toLowerCase().includes('learning') || 
-                c.title.toLowerCase().includes('networks') || 
-                c.title.toLowerCase().includes('database') || 
-                c.code.toLowerCase().includes('cs')
-              );
-
-              return matchesTitle || matchesDesc || matchesCode || matchesItKeywords;
-            });
-            
-            filterAppliedMessage = `Synchronized ${data.courses.length} courses from Moodle. Applied topic filter: "${courseFilter}" (${synchronizedCourses.length} matches found).`;
-          }
-
-          setSyncStatus('success');
-          setSyncMessage(filterAppliedMessage);
-          setConnectionType(useSandbox ? 'sandbox' : 'live');
-          if (onSyncMoodleCourses) {
-            onSyncMoodleCourses(synchronizedCourses);
-          }
-        } else {
-          setSyncStatus('error');
-          setSyncMessage('Moodle Connection failed: ' + (data.details || 'Unknown error'));
-        }
-      }, 1300);
-
-    } catch (err: any) {
-      setIsSyncing(false);
-      setSyncStatus('error');
-      setSyncMessage('Moodle REST service is offline or unreachable locally.');
+  const handleFeedbackSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!feedbackText.trim()) {
+      setFeedbackError('Please enter some detailed feedback.');
+      return;
     }
+    setFeedbackError('');
+
+    // Read existing feedbacks from localStorage
+    const saved = localStorage.getItem("rtb_lms_feedbacks");
+    let currentFeedbacks = [];
+    if (saved) {
+      try {
+        currentFeedbacks = JSON.parse(saved);
+      } catch (err) {
+        // Fallback
+      }
+    }
+
+    const calculatedSeverity = feedbackClassification === "Problem" ? "Critical" : feedbackClassification === "Suggestion" ? "Medium" : "Low";
+
+    const newFeedback = {
+      id: `fb-${Date.now()}`,
+      title: `Feedback on ${selectedCourseForFeedback?.title}`,
+      description: feedbackText.trim(),
+      userType: "Trainee",
+      classification: feedbackClassification,
+      severity: calculatedSeverity,
+      votes: 1,
+      date: new Date().toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      }),
+      courseName: selectedCourseForFeedback?.title,
+      userName: currentUser?.name || "Alex Rivera",
+      userAvatar: currentUser?.avatarUrl || ""
+    };
+
+    localStorage.setItem("rtb_lms_feedbacks", JSON.stringify([newFeedback, ...currentFeedbacks]));
+    
+    setFeedbackSubmitted(true);
+    setFeedbackText('');
+    setFeedbackRating(5);
+    setFeedbackClassification('Suggestion');
+
+    setTimeout(() => {
+      setFeedbackSubmitted(false);
+      setShowFeedbackModal(false);
+      setSelectedCourseForFeedback(null);
+    }, 2000);
   };
 
-  // Trigger automatic Moodle API synchronization on mount
-  React.useEffect(() => {
-    if (connectionType === 'none' && !isSyncing) {
-      handleMoodleSync(false); // Automatically sync Moodle Cloud on load!
-    }
-  }, []);
+
 
   const handleToggleBookmark = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -194,170 +169,7 @@ export function MyCoursesView({
             />
             <Search className="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-outline" />
           </div>
-
-          <button className="flex items-center gap-1.5 px-4 py-1.5 border border-outline-variant rounded-lg text-xs font-medium bg-white text-on-surface hover:bg-surface-container-low transition-all">
-            <Filter className="w-3.5 h-3.5 text-on-surface-variant" />
-            <span>Filter</span>
-          </button>
         </div>
-      </section>
-
-      {/* MOODLE REST API CONNECTION CENTER */}
-      <section className="bg-white border border-outline-variant/60 rounded-xl overflow-hidden shadow-xs hover:border-primary/45 transition-all">
-        <div className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 select-none">
-          <div className="flex items-center gap-3.5">
-            <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0 relative">
-              <Database className="w-6 h-6" />
-              {connectionType !== 'none' && (
-                <span className="absolute top-[-2px] right-[-2px] w-3 h-3 bg-secondary rounded-full border-2 border-white animate-pulse"></span>
-              )}
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="font-extrabold text-on-surface text-base">Moodle LMS REST Integration</h3>
-                {connectionType === 'none' && (
-                  <span className="bg-outline-variant/50 text-outline text-[9px] px-2 py-0.5 rounded-full font-bold">
-                    Disconnected
-                  </span>
-                )}
-                {connectionType === 'sandbox' && (
-                  <span className="bg-secondary/15 text-secondary text-[9px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
-                    <Check className="w-3 h-3" /> Connected: Demo Sandbox
-                  </span>
-                )}
-                {connectionType === 'live' && (
-                  <span className="bg-primary/20 text-on-primary-container text-[9px] px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
-                    <Check className="w-3 h-3" /> Connected: Live LMS
-                  </span>
-                )}
-              </div>
-              <p className="text-xs text-on-surface-variant mt-0.5 leading-relaxed font-medium">
-                Synchronize your course modules, assignments, and grades directly from your Moodle server via Moodle Web Services API.
-              </p>
-            </div>
-          </div>
-
-          <button 
-            type="button"
-            onClick={() => setShowMoodlePanel(!showMoodlePanel)}
-            className="w-full sm:w-auto px-4 py-2 border border-outline-variant hover:border-primary/50 text-on-surface-variant font-bold rounded-lg text-xs hover:bg-surface-container transition-all text-center shrink-0 cursor-pointer"
-          >
-            {showMoodlePanel ? 'Hide Settings' : 'Configure Moodle API'}
-          </button>
-        </div>
-
-        {/* Collapsible Config Details */}
-        {showMoodlePanel && (
-          <div className="border-t border-outline-variant/40 bg-surface-container-low/30 p-6 space-y-6 relative overflow-hidden animate-fade-in">
-            {isSyncing && (
-              <div className="absolute inset-0 bg-white/80 backdrop-blur-xs z-20 flex flex-col items-center justify-center text-center p-4">
-                <RefreshCw className="w-9 h-9 text-primary animate-spin mb-3" />
-                <p className="text-sm font-extrabold text-charcoal">{syncMessage}</p>
-                <p className="text-[10px] text-outline mt-1 font-medium italic">Standard Moodle wstoken handshake in progress...</p>
-              </div>
-            )}
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {/* URL Input */}
-              <div className="space-y-1.5">
-                <label className="text-[11px] font-black text-charcoal uppercase tracking-wider block flex items-center gap-1.5">
-                  <Database className="w-3.5 h-3.5 text-primary" /> Moodle Host URL
-                </label>
-                <input
-                  type="url"
-                  placeholder="https://moodle.your-school.edu"
-                  value={moodleUrl}
-                  onChange={(e) => setMoodleUrl(e.target.value)}
-                  disabled={isSyncing}
-                  className="block w-full bg-white border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/10 rounded-lg py-2.5 px-3.5 text-xs font-semibold placeholder:text-outline/70 outline-hidden transition-all text-on-surface"
-                />
-              </div>
-
-              {/* Token Input */}
-              <div className="space-y-1.5">
-                <label className="text-[11px] font-black text-charcoal uppercase tracking-wider block flex items-center gap-1.5">
-                  <Key className="w-3.5 h-3.5 text-primary" /> Access Token (wstoken)
-                </label>
-                <input
-                  type="password"
-                  placeholder="Paste wstoken here (e.g. 8fc3...)"
-                  value={moodleToken}
-                  onChange={(e) => setMoodleToken(e.target.value)}
-                  disabled={isSyncing}
-                  className="block w-full bg-white border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/10 rounded-lg py-2.5 px-3.5 text-xs font-semibold placeholder:text-outline/70 outline-hidden transition-all text-on-surface"
-                />
-              </div>
-
-              {/* Filter Topic Input */}
-              <div className="space-y-1.5">
-                <label className="text-[11px] font-black text-charcoal uppercase tracking-wider block flex items-center gap-1.5">
-                  <Filter className="w-3.5 h-3.5 text-primary" /> Course Topic Filter
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g. IT, CS, Deep Learning"
-                  value={courseFilter}
-                  onChange={(e) => setCourseFilter(e.target.value)}
-                  disabled={isSyncing}
-                  className="block w-full bg-white border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/10 rounded-lg py-2.5 px-3.5 text-xs font-semibold placeholder:text-outline/70 outline-hidden transition-all text-on-surface"
-                />
-              </div>
-            </div>
-
-            {/* Response Alerts */}
-            {syncStatus !== 'idle' && (
-              <div className={`p-4 rounded-xl border flex gap-3 text-xs ${syncStatus === 'success' ? 'bg-primary-container/10 border-primary/20 text-on-primary-container' : 'bg-error-container/20 border-error/20 text-on-error-container'}`}>
-                {syncStatus === 'success' ? (
-                  <Check className="w-4 h-4 text-secondary shrink-0 mt-0.5" />
-                ) : (
-                  <AlertCircle className="w-4 h-4 text-error shrink-0 mt-0.5" />
-                )}
-                <div>
-                  <h4 className="font-extrabold">{syncStatus === 'success' ? 'Synchronized!' : 'Connection Warning'}</h4>
-                  <p className="mt-0.5 leading-relaxed font-semibold">{syncMessage}</p>
-                </div>
-              </div>
-            )}
-
-            {/* Instruction Notice Box */}
-            <div className="bg-surface-container-high/40 border border-outline-variant/65 p-4 rounded-xl text-[11px] space-y-2 text-on-surface-variant font-medium">
-              <span className="text-[10px] font-black uppercase text-secondary tracking-wider block">How to enable Moodle Web Services API:</span>
-              <ul className="list-decimal pl-4 space-y-1.5">
-                <li>Log into Moodle with admin access and go to <strong>Site Administration &gt; Advanced features &gt; Enable Web Services</strong>.</li>
-                <li>Go to <strong>Plugins &gt; Web services &gt; Manage protocols</strong> and enable <strong>REST protocol</strong>.</li>
-                <li>Go to <strong>Manage tokens</strong>, click <strong>Add</strong>, select your user and standard course service, then copy the generated <code>wstoken</code> and paste it here!</li>
-              </ul>
-            </div>
-
-            {/* Sync Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-end pt-2">
-              <button
-                type="button"
-                onClick={() => handleMoodleSync(true)}
-                disabled={isSyncing}
-                className="py-2.5 px-5 bg-primary text-on-primary font-extrabold rounded-xl shadow-xs hover:bg-gold-dark hover:shadow-md transition-all text-xs cursor-pointer text-center"
-              >
-                Connect Demo Sandbox
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  if (!moodleUrl || !moodleToken) {
-                    setSyncStatus('error');
-                    setSyncMessage('Please provide your Moodle base URL and Access Token for live synchronization.');
-                    return;
-                  }
-                  handleMoodleSync(false);
-                }}
-                disabled={isSyncing}
-                className="py-2.5 px-5 border border-outline-variant text-on-surface-variant hover:border-primary/55 font-extrabold rounded-xl hover:bg-surface-container-high transition-all text-xs cursor-pointer text-center bg-white"
-              >
-                Sync Live Moodle Instance
-              </button>
-            </div>
-
-          </div>
-        )}
       </section>
 
       {/* Courses Grid */}
@@ -424,9 +236,20 @@ export function MyCoursesView({
                       >
                         Resume Learning
                       </button>
+                      <button
+                        onClick={() => {
+                          setSelectedCourseForFeedback(course);
+                          setShowFeedbackModal(true);
+                        }}
+                        className="py-2 px-3 border border-outline-variant hover:border-primary/50 text-on-surface-variant font-bold rounded-lg text-xs hover:bg-surface-container transition-all flex items-center gap-1 cursor-pointer shrink-0"
+                        title="Provide Course Feedback"
+                      >
+                        <MessageSquare className="w-3.5 h-3.5 text-primary" />
+                        <span className="hidden sm:inline">Feedback</span>
+                      </button>
                       <button 
                         onClick={(e) => handleToggleBookmark(course.id, e)}
-                        className="p-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-colors shrink-0"
+                        className="p-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-colors shrink-0 cursor-pointer"
                       >
                         <Bookmark className={`w-4 h-4 ${bookmarkedList.includes(course.id) ? 'fill-primary text-primary' : 'text-primary'}`} />
                       </button>
@@ -475,13 +298,23 @@ export function MyCoursesView({
                 <div className="flex gap-2">
                   <button 
                     onClick={() => onResumeCourse(course.id)}
-                    className="flex-1 py-2 border border-primary text-primary hover:bg-primary/5 rounded-lg text-xs font-bold transition-all"
+                    className="flex-1 py-2 border border-primary text-primary hover:bg-primary/5 rounded-lg text-xs font-bold transition-all cursor-pointer"
                   >
                     Resume
                   </button>
+                  <button
+                    onClick={() => {
+                      setSelectedCourseForFeedback(course);
+                      setShowFeedbackModal(true);
+                    }}
+                    className="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-high text-outline hover:text-primary transition-colors flex items-center justify-center shrink-0 cursor-pointer"
+                    title="Provide Course Feedback"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" />
+                  </button>
                   <button 
                     onClick={(e) => handleToggleBookmark(course.id, e)}
-                    className="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-high text-outline hover:text-primary transition-colors"
+                    className="p-2 border border-outline-variant rounded-lg hover:bg-surface-container-high text-outline hover:text-primary transition-colors shrink-0 cursor-pointer"
                   >
                     <Bookmark className={`w-3.5 h-3.5 ${bookmarkedList.includes(course.id) ? 'fill-primary text-primary' : 'text-primary'}`} />
                   </button>
@@ -505,6 +338,149 @@ export function MyCoursesView({
             Enroll Now
           </button>
         </article>
-      </div>    </div>
+      </div>
+      
+      {/* DIRECT COURSE FEEDBACK MODAL */}
+      {showFeedbackModal && selectedCourseForFeedback && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 animate-fade-in select-none">
+          <div className="bg-white border-2 border-primary/20 w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl relative animate-scale-up text-on-surface">
+            {/* Header */}
+            <div className="bg-surface-container-high/60 px-6 py-4 flex justify-between items-center border-b border-outline-variant/50">
+              <div className="flex items-center gap-2">
+                <MessageSquare className="w-5 h-5 text-primary" />
+                <h3 className="font-extrabold text-base">Provide Course Feedback</h3>
+              </div>
+              <button 
+                onClick={() => {
+                  setShowFeedbackModal(false);
+                  setSelectedCourseForFeedback(null);
+                  setFeedbackError('');
+                }}
+                className="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-md hover:bg-surface-container cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Modal Success Overlay */}
+            {feedbackSubmitted && (
+              <div className="absolute inset-0 bg-white/95 z-20 flex flex-col items-center justify-center p-6 text-center animate-fade-in">
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-4 border border-primary/20">
+                  <CheckCircle2 className="w-10 h-10 animate-bounce" />
+                </div>
+                <h3 className="text-lg font-black text-on-surface">
+                  Course Feedback Submitted!
+                </h3>
+                <p className="text-xs text-on-surface-variant mt-2 max-w-sm leading-relaxed font-medium">
+                  Your feedback on <strong>{selectedCourseForFeedback.title}</strong> has been logged to the central student voice board. Thank you for co-creating with us!
+                </p>
+              </div>
+            )}
+
+            {/* Form */}
+            <form onSubmit={handleFeedbackSubmit} className="p-6 space-y-5">
+              <div className="space-y-1 text-left">
+                <span className="text-[10px] font-black uppercase text-primary tracking-wider block">Course Details</span>
+                <div className="bg-surface-container-low p-3 rounded-xl border border-outline-variant/40">
+                  <h4 className="text-xs font-black text-on-surface leading-tight">{selectedCourseForFeedback.title}</h4>
+                  <p className="text-[10px] text-on-surface-variant mt-1 font-semibold">{selectedCourseForFeedback.code} • {selectedCourseForFeedback.instructor}</p>
+                </div>
+              </div>
+
+              {feedbackError && (
+                <div className="bg-error-container/20 border border-error/20 text-on-error-container text-xs rounded-xl p-3 font-bold flex items-center gap-2">
+                  <span className="shrink-0 font-bold">⚠️</span>
+                  <span>{feedbackError}</span>
+                </div>
+              )}
+
+              {/* Rating Star Selector */}
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black uppercase text-primary tracking-wider block">Course Rating</label>
+                <div className="flex items-center gap-1.5">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      type="button"
+                      onClick={() => setFeedbackRating(star)}
+                      className="p-1 hover:scale-115 transition-transform cursor-pointer"
+                    >
+                      <Star 
+                        className={`w-7 h-7 transition-all ${
+                          feedbackRating >= star ? 'fill-primary text-primary' : 'text-outline-variant hover:text-primary/70'
+                        }`} 
+                      />
+                    </button>
+                  ))}
+                  <span className="text-xs font-black text-on-surface-variant ml-2">({feedbackRating} / 5 Stars)</span>
+                </div>
+              </div>
+
+              {/* Classification category */}
+              <div className="space-y-2 text-left">
+                <label className="text-[10px] font-black uppercase text-primary tracking-wider block">Feedback Category</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {(["Problem", "Suggestion", "User Experience"] as const).map((cat) => {
+                    const isSelected = feedbackClassification === cat;
+                    return (
+                      <button
+                        key={cat}
+                        type="button"
+                        onClick={() => setFeedbackClassification(cat)}
+                        className={`py-2 px-1.5 border rounded-xl text-[10px] font-black text-center transition-all cursor-pointer select-none relative
+                          ${
+                            isSelected
+                              ? "bg-primary text-on-primary border-primary shadow-xs"
+                              : "bg-white border-outline-variant/65 text-on-surface-variant hover:bg-surface-container-low"
+                          }`}
+                      >
+                        <span>{cat}</span>
+                        {isSelected && (
+                          <div className="absolute top-1 right-1.5 w-1.5 h-1.5 bg-on-primary rounded-full" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Detailed observation textarea */}
+              <div className="space-y-1.5 text-left">
+                <label className="text-[10px] font-black uppercase text-primary tracking-wider block">Detailed Comments</label>
+                <textarea
+                  rows={4}
+                  maxLength={500}
+                  placeholder={`Share what you liked or what could be improved about ${selectedCourseForFeedback.title}...`}
+                  value={feedbackText}
+                  onChange={(e) => setFeedbackText(e.target.value)}
+                  className="w-full bg-white border border-outline-variant focus:border-primary focus:ring-2 focus:ring-primary/10 rounded-xl text-xs px-3 py-2 outline-hidden font-semibold text-on-surface placeholder:text-outline leading-relaxed"
+                />
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-3 justify-end pt-2 border-t border-outline-variant/40">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowFeedbackModal(false);
+                    setSelectedCourseForFeedback(null);
+                    setFeedbackError('');
+                  }}
+                  className="py-2.5 px-4 border border-outline-variant hover:bg-surface-container rounded-xl text-xs font-extrabold text-on-surface-variant transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="py-2.5 px-5 bg-primary hover:bg-primary/95 text-on-primary font-extrabold rounded-xl shadow-xs hover:shadow-md transition-all text-xs cursor-pointer"
+                >
+                  Submit Feedback
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

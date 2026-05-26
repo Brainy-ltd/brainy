@@ -76,7 +76,7 @@ export function CourseWorkspaceView({
     },
     {
       id: 'topic-4',
-      title: 'Module 4: Convolutional Neural Nets (CNNs) in Moodle',
+      title: 'Module 4: Convolutional Neural Nets (CNNs) Spatial Extraction',
       duration: '75 mins',
       completed: course.progress >= 70,
       content: 'Detailed focus on spatial feature extractions. Reviews convolutional layers, kernel filters, stride and zero-padding configurations, max-pooling layers, and classic architectures (LeNet, AlexNet, VGG).',
@@ -213,7 +213,7 @@ export function CourseWorkspaceView({
     setTimeout(() => {
       const generated = `Personal Study Notes for: ${course.title}
 =====================================
-Synced from Live Moodle REST API
+Synced from Academic Syllabus
 
 📖 ACTIVE TOPIC: ${selectedTopic.title}
 -------------------------------------
@@ -249,7 +249,7 @@ Key Takeaways & Conceptual Architecture:
           <span>Back to Courses</span>
         </button>
         <span className="bg-primary/10 text-primary border border-primary/20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5">
-          <Database className="w-3.5 h-3.5" /> Enrolled via REST Web Services
+          <BookOpen className="w-3.5 h-3.5" /> Enrolled Course Workspace
         </span>
       </section>
 
@@ -275,7 +275,7 @@ Key Takeaways & Conceptual Architecture:
               <p className="font-extrabold text-charcoal mt-0.5">{course.instructor}</p>
             </div>
             <div>
-              <p className="text-[10px] text-outline uppercase font-bold tracking-wider">Moodle Progress</p>
+              <p className="text-[10px] text-outline uppercase font-bold tracking-wider">Course Progress</p>
               <div className="flex items-center gap-2 mt-0.5">
                 <div className="w-24 h-2 bg-secondary-fixed/20 rounded-full overflow-hidden shrink-0">
                   <div className="h-full bg-secondary rounded-full" style={{ width: `${course.progress}%` }}></div>
@@ -301,7 +301,7 @@ Key Takeaways & Conceptual Architecture:
           <div className="space-y-4">
             <div>
               <h3 className="font-black text-charcoal text-sm uppercase tracking-wider">Course Syllabus</h3>
-              <p className="text-[11px] text-outline mt-0.5 font-medium">Check off topics to automatically update Moodle Cloud progress</p>
+              <p className="text-[11px] text-outline mt-0.5 font-medium">Check off topics to automatically update course progress</p>
             </div>
 
             <div className="space-y-2.5 max-h-[350px] overflow-y-auto pr-1">
