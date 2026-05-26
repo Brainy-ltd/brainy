@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-headline: "Inter", system-ui, -apple-system, sans-serif;
+  
+  /* Theme swatches as direct color names */
+  --color-brainy-gold: #F6AC0D;
+  --color-gold-dark: #D4940B;
+  --color-charcoal: #2D2D2D;
+  --color-warm-gray: #6B7280;
+  --color-cream: #FFF9EC;
+  --color-light-gold: #FEF3D6;
+  --color-white: #FFFFFF;
+  
+  /* Mapping semantic names to user color swatches */
+  --color-surface: #FFFFFF;
+  --color-surface-dim: #FEF3D6;
+  --color-surface-bright: #FFFFFF;
+  --color-surface-lowest: #FFFFFF;
+  --color-surface-low: #FFF9EC;
+  --color-surface-container: #FFF9EC;
+  --color-surface-container-low: #FFF9EC;
+  --color-surface-container-high: #FEF3D6;
+  --color-surface-high: #FFF9EC;
+  --color-surface-highest: #FEF3D6;
+  
+  --color-on-surface: #2D2D2D;
+  --color-on-surface-variant: #6B7280;
+  --color-outline: #6B7280;
+  --color-outline-variant: #FEF3D6;
+  
+  --color-primary: #F6AC0D;
+  --color-on-primary: #2D2D2D; /* Charcoal body/text color for premium contrast on Gold background */
+  --color-primary-container: #FEF3D6; /* Light Gold client-side container backgrounds */
+  --color-on-primary-container: #D4940B; /* Gold Dark for items inside primary containers */
+  
+  --color-secondary: #D4940B; /* Gold Dark secondary accents */
+  --color-on-secondary: #FFFFFF;
+  --color-secondary-container: #FFF9EC; /* Cream callout background */
+  --color-on-secondary-container: #2D2D2D;
+  
+  --color-tertiary: #6B7280;
+  --color-on-tertiary: #FFFFFF;
+  
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* Brand semantic names mapped for custom library components compatibility */
+  --color-brand-primary: #F6AC0D;
+  --color-brand-secondary: #D4940B;
+  --color-brand-highlight: #FFF9EC;
+  --color-brand-border: #E5E7EB;
+  --color-brand-light-gray: #F9FAFB;
+  --color-brand-muted: #6B7280;
+  --color-brand-text: #2D2D2D;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #FFFFFF;
+  color: #2D2D2D;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d9dadb;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c1c6d6;
+}
+
