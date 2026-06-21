@@ -319,7 +319,7 @@ export function FeedbackView({ currentUser, courses = [] }: FeedbackViewProps) {
         ...prev,
         {
           sender: "assistant" as const,
-          text: "I encountered an error querying the intelligence service. Please make sure your server is online and GEMINI_API_KEY is configured.",
+          text: "I encountered an error connecting to the Brainy AI service. Please try again in a moment.",
         },
       ]);
     } finally {
