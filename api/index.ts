@@ -169,7 +169,7 @@ Keep the tone encouraging, highly academic, yet simple and actionable. Use rich 
       res.status(500).json({
         error: "AI analysis failed",
         details: error.message,
-        text: "The AI Advisor was unable to connect or analyze the feedback datasets right now. Make sure GEMINI_API_KEY is configured.",
+        text: "The Brainy AI Advisor was unable to analyze the feedback datasets right now. Please try again in a moment.",
       });
     }
   });
@@ -248,7 +248,7 @@ The student's message: "${question}"`;
       res.status(500).json({
         error: "AI chat failed",
         details: error.message,
-        text: "I experienced an error connecting to the Server. Please make sure GEMINI_API_KEY is configured correctly.",
+        text: "I experienced an error connecting to the Brainy AI service. Please try again in a moment.",
       });
     }
   });
@@ -289,7 +289,7 @@ Write a helpful 3-5 sentence overview covering what the resource is about, who i
         error: "AI summarize failed",
         details: error.message,
         summary:
-          "Could not generate summary. Check server state or verify GEMINI_API_KEY.",
+          "Could not generate the summary right now. Please try again in a moment.",
       });
     }
   });
