@@ -426,7 +426,7 @@ export function LibraryView() {
       const errMsg: ChatMessage = {
         id: `ai-err-${Date.now()}`,
         sender: 'ai',
-        text: "I experienced an error connecting to the Server. Please make sure GEMINI_API_KEY is configured correctly in Secrets Panel.",
+        text: "I experienced an error connecting to the Brainy AI service. Please try again in a moment.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setAiMessages(prev => [...prev, errMsg]);
@@ -471,7 +471,7 @@ export function LibraryView() {
       const errMsg: ChatMessage = {
         id: `ai-sum-err-${Date.now()}`,
         sender: 'ai',
-        text: "Could not generate summary. Check server state or verify GEMINI_API_KEY.",
+        text: "Could not generate summary right now. Please try again in a moment.",
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
       setAiMessages(prev => [...prev, errMsg]);
@@ -659,7 +659,7 @@ export function LibraryView() {
               Digital Resource Library
             </h2>
             <p className="small-body text-brand-muted mt-1 max-w-2xl leading-relaxed">
-              Accelerate, curate, and peer-review academic files across the student campus. Maintain version control history, secure inline reviews, and generate instantly summarized study roadmaps via Gemini AI integration.
+              Accelerate, curate, and peer-review academic files across the student campus. Maintain version control history, secure inline reviews, and generate instantly summarized study roadmaps via Brainy AI integration.
             </p>
           </div>
           
@@ -978,7 +978,7 @@ export function LibraryView() {
                 <h4 className="text-xs font-bold uppercase tracking-wider text-brand-text">Dynamic Syllabus AI Advisor</h4>
               </div>
               <p className="small-body text-brand-muted leading-relaxed">
-                Enter an educational module, career pathway, or resource keyword to query Gemini for customized book shelves and learning tip paths instantly!
+                Enter an educational module, career pathway, or resource keyword to query Brainy AI for customized book shelves and learning tip paths instantly!
               </p>
               
               <form onSubmit={handleGetAiRecommendations} className="flex gap-2">
@@ -1123,7 +1123,7 @@ export function LibraryView() {
                   {/* Actions area inside summary */}
                   <div className="flex flex-wrap gap-2 pt-2">
                     
-                    {/* Summarize via Gemini AI */}
+                    {/* Summarize via Brainy AI */}
                     <button
                       onClick={() => handleAiSummarize(selectedResource)}
                       className="bg-brand-highlight py-1.5 px-3 rounded-md text-brand-secondary font-bold text-xs hover:bg-brand-primary hover:text-brand-text transition-all flex items-center gap-1 border border-brand-primary/25 cursor-pointer"
@@ -1415,7 +1415,7 @@ export function LibraryView() {
                   <h3 className="text-xs font-bold uppercase tracking-wider text-brand-text font-display">
                     Brainy AI Resource Assistant
                   </h3>
-                  <span className="text-[9px] text-emerald-600 font-bold block">● ONLINE GEMINI PILOT</span>
+                  <span className="text-[9px] text-emerald-600 font-bold block">● BRAINY AI ONLINE</span>
                 </div>
               </div>
 
@@ -1458,7 +1458,7 @@ export function LibraryView() {
               {isAiLoading && (
                 <div className="flex items-center gap-2 text-brand-muted py-2">
                   <Loader2 className="w-4 h-4 animate-spin text-brand-primary" />
-                  <span className="font-mono text-[10px]">Gemini is analyzing academic shelves...</span>
+                  <span className="font-mono text-[10px]">Brainy AI is analyzing academic shelves...</span>
                 </div>
               )}
 
