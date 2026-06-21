@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import logoBrainy from '../../logo_brainy.jpeg';
+import logoBrainy from '../../logo_brainy.png';
+import { users } from '../data';
+import { User } from '../types';
 import { 
   GraduationCap, 
   Lock, 
@@ -14,12 +16,13 @@ import {
 } from 'lucide-react';
 
 interface LoginViewProps {
-  onLogin: () => void;
+  onLogin: (user: User) => void;
 }
 
 export function LoginView({ onLogin }: LoginViewProps) {
-  const [email, setEmail] = useState('student@brainy.edu');
-  const [password, setPassword] = useState('password123');
+  // Credentials are never pre-filled — the user must type them in.
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,24 +44,23 @@ export function LoginView({ onLogin }: LoginViewProps) {
 
     setIsLoading(true);
 
-    // Simulate network authentication delay for premium feel
+    // Authenticate against the credentials defined in src/data/users.json.
     setTimeout(() => {
-      setIsLoading(false);
-      onLogin();
-    }, 1200);
-  };
+      const matchedUser = users.find(
+        (u) =>
+          u.email.toLowerCase() === email.trim().toLowerCase() &&
+          u.password === password,
+      );
 
-  const handleQuickLogin = (role: 'student' | 'trainer' | 'admin') => {
-    if (role === 'student') {
-      setEmail('student@brainy.edu');
-      setPassword('password123');
-    } else if (role === 'trainer') {
-      setEmail('jenkins.trainer@brainy.edu');
-      setPassword('trainer456');
-    } else {
-      setEmail('admin@brainy.edu');
-      setPassword('admin789');
-    }
+      setIsLoading(false);
+
+      if (!matchedUser) {
+        setError('Invalid email or password. Please check your credentials.');
+        return;
+      }
+
+      onLogin(matchedUser);
+    }, 1200);
   };
 
   return (
@@ -129,14 +131,13 @@ export function LoginView({ onLogin }: LoginViewProps) {
 
         <div className="mx-auto w-full max-w-md space-y-8 z-10">
           
-          {/* Logo Frame Header */}
+          {/* Logo Header */}
           <div className="flex flex-col items-center text-center">
-            <div className="relative group select-none">
-              <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-lg group-hover:blur-xl transition-all opacity-80"></div>
-              <img 
-                src={logoBrainy} 
-                alt="Academic Logo" 
-                className="w-28 h-28 rounded-2xl border-2 border-primary object-cover shadow-lg relative z-10 transition-transform duration-300 group-hover:scale-105"
+            <div className="group select-none">
+              <img
+                src={logoBrainy}
+                alt="Academic Logo"
+                className="w-44 h-44 object-contain transition-transform duration-300 group-hover:scale-105"
               />
             </div>
             
@@ -146,37 +147,6 @@ export function LoginView({ onLogin }: LoginViewProps) {
             <p className="text-xs text-warm-gray font-semibold mt-1">
               Sign in with your credentials to enter your dashboard
             </p>
-          </div>
-
-          {/* Quick Demo Credentials */}
-          <div className="bg-surface-low border border-outline-variant/60 rounded-xl p-3.5">
-            <div className="flex justify-between items-baseline mb-2">
-              <span className="text-[10px] font-black uppercase text-secondary tracking-wider">Demo Quick Login</span>
-              <span className="text-[9px] font-bold text-outline">Click to autofill credentials</span>
-            </div>
-            <div className="grid grid-cols-3 gap-2">
-              <button 
-                type="button"
-                onClick={() => handleQuickLogin('student')}
-                className="py-1 px-2.5 bg-white border border-outline-variant hover:border-primary/55 rounded-lg text-[10px] font-bold hover:bg-surface-container transition-all"
-              >
-                🎓 Student
-              </button>
-              <button 
-                type="button"
-                onClick={() => handleQuickLogin('trainer')}
-                className="py-1 px-2.5 bg-white border border-outline-variant hover:border-primary/55 rounded-lg text-[10px] font-bold hover:bg-surface-container transition-all"
-              >
-                🏫 Trainer
-              </button>
-              <button 
-                type="button"
-                onClick={() => handleQuickLogin('admin')}
-                className="py-1 px-2.5 bg-white border border-outline-variant hover:border-primary/55 rounded-lg text-[10px] font-bold hover:bg-surface-container transition-all"
-              >
-                🛡️ Admin
-              </button>
-            </div>
           </div>
 
           {/* Login Form */}

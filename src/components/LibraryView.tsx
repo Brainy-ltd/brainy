@@ -33,21 +33,49 @@ import {
   ThumbsUp,
   Share2,
   Trash2,
-  ArrowRight
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
+
+// Storage keys + file signatures. When src/data/library.json is edited the
+// signature changes, which re-seeds from the file (so your edits always show).
+// While the file is unchanged, in-app changes persist across reloads.
+const RES_KEY = 'digital_resources';
+const RES_SIG_KEY = 'digital_resources_sig';
+const RES_SIG = JSON.stringify(initialResources);
+const LOG_KEY = 'library_activity_logs';
+const LOG_SIG_KEY = 'library_activity_logs_sig';
+const LOG_SIG = JSON.stringify(initialActivityLog);
+
+function loadStored<T>(key: string, sigKey: string, sig: string, fallback: T): T {
+  try {
+    if (localStorage.getItem(sigKey) === sig) {
+      const saved = localStorage.getItem(key);
+      if (saved) return JSON.parse(saved);
+    }
+  } catch (e) {
+    /* fall through to file seed */
+  }
+  return fallback;
+}
 
 export function LibraryView() {
   // Core catalog states
-  const [resources, setResources] = useState<ResourceItem[]>(() => {
-    const saved = localStorage.getItem('digital_resources');
-    return saved ? JSON.parse(saved) : initialResources;
-  });
+  const [resources, setResources] = useState<ResourceItem[]>(() =>
+    loadStored(RES_KEY, RES_SIG_KEY, RES_SIG, initialResources)
+  );
 
   // Navigation and Filter States
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [activeStatus, setActiveStatus] = useState<string>('All');
   const [activeFormat, setActiveFormat] = useState<string>('All');
+
+  // Pagination
+  const PAGE_SIZE = 8;
+  const [currentPage, setCurrentPage] = useState(1);
+  const listTopRef = useRef<HTMLDivElement>(null);
 
   // Selected Resource Detail Drawer / Pane State
   const [selectedResource, setSelectedResource] = useState<ResourceItem | null>(null);
@@ -73,7 +101,7 @@ export function LibraryView() {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [uploadTitle, setUploadTitle] = useState('');
   const [uploadAuthor, setUploadAuthor] = useState('');
-  const [uploadCategory, setUploadCategory] = useState('Computing');
+  const [uploadCategory, setUploadCategory] = useState('Software Development');
   const [uploadFormat, setUploadFormat] = useState<ResourceFormat>('PDF');
   const [uploadDescription, setUploadDescription] = useState('');
   const [uploadSize, setUploadSize] = useState('2.4 MB');
@@ -88,21 +116,23 @@ export function LibraryView() {
   const [newChangelog, setNewChangelog] = useState('');
 
   // Activity Log
-  const [activityLogs, setActivityLogs] = useState(() => {
-    const saved = localStorage.getItem('library_activity_logs');
-    return saved ? JSON.parse(saved) : initialActivityLog;
-  });
+  const [activityLogs, setActivityLogs] = useState(() =>
+    loadStored(LOG_KEY, LOG_SIG_KEY, LOG_SIG, initialActivityLog)
+  );
 
   // Auto-scroller ref for AI Chat
   const chatBottomRef = useRef<HTMLDivElement>(null);
 
-  // Sync state to local storage
+  // Sync state to local storage (tagged with the file signature so edits to
+  // library.json always re-seed instead of showing stale stored data).
   useEffect(() => {
-    localStorage.setItem('digital_resources', JSON.stringify(resources));
+    localStorage.setItem(RES_KEY, JSON.stringify(resources));
+    localStorage.setItem(RES_SIG_KEY, RES_SIG);
   }, [resources]);
 
   useEffect(() => {
-    localStorage.setItem('library_activity_logs', JSON.stringify(activityLogs));
+    localStorage.setItem(LOG_KEY, JSON.stringify(activityLogs));
+    localStorage.setItem(LOG_SIG_KEY, LOG_SIG);
   }, [activityLogs]);
 
   useEffect(() => {
@@ -111,8 +141,9 @@ export function LibraryView() {
     }
   }, [aiMessages, isAiLoading]);
 
-  // Categories helper
-  const categoriesList = ['All', 'Computing', 'Engineering', 'Science', 'Arts', 'Mathematics'];
+  // Categories derived from the library data so RTB trades from library.json
+  // automatically appear as filters.
+  const categoriesList = ['All', ...Array.from(new Set(resources.map((r) => r.category)))];
   const statusList = ['All', 'Draft', 'Under Review', 'Feedback Stage', 'Approved', 'Published'];
   const formatList = ['All', 'PDF', 'Video', 'Link', 'Document', 'Dataset', 'Slide'];
 
@@ -177,12 +208,9 @@ export function LibraryView() {
 
   // Helper for mock thumbnails mapping category keywords to beautiful Unsplash prints
   const getPlaceholderThumbnail = (cat: string) => {
-    if (cat === 'Computing') return 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=200';
-    if (cat === 'Engineering') return 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=200';
-    if (cat === 'Science') return 'https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&q=80&w=200';
-    if (cat === 'Arts') return 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=200';
-    if (cat === 'Mathematics') return 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=200';
-    return 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=200';
+    // Stable per-category placeholder cover that always renders.
+    const slug = (cat || 'resource').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    return `https://picsum.photos/seed/rtb-${slug}/240/320`;
   };
 
   // 2. SUBMIT FEEDBACK WORKFLOW (changes status to Feedback Stage or gathers feedback)
@@ -547,6 +575,38 @@ export function LibraryView() {
     return matchesSearch && matchesCategory && matchesStatus && matchesFormat;
   });
 
+  // Pagination math (clamped so we never land on an empty page)
+  const totalPages = Math.max(1, Math.ceil(filteredResources.length / PAGE_SIZE));
+  const safePage = Math.min(currentPage, totalPages);
+  const pageStart = (safePage - 1) * PAGE_SIZE;
+  const paginatedResources = filteredResources.slice(pageStart, pageStart + PAGE_SIZE);
+
+  // Reset to the first page whenever the filters or search change.
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, activeCategory, activeStatus, activeFormat]);
+
+  const goToPage = (p: number) => {
+    const next = Math.min(Math.max(1, p), totalPages);
+    setCurrentPage(next);
+    listTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  // Build compact page-number list with ellipses, e.g. 1 … 4 5 [6] 7 8 … 12
+  const pageItems: (number | 'ellipsis')[] = (() => {
+    if (totalPages <= 7) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+    const items: (number | 'ellipsis')[] = [1];
+    const left = Math.max(2, safePage - 1);
+    const right = Math.min(totalPages - 1, safePage + 1);
+    if (left > 2) items.push('ellipsis');
+    for (let i = left; i <= right; i++) items.push(i);
+    if (right < totalPages - 1) items.push('ellipsis');
+    items.push(totalPages);
+    return items;
+  })();
+
   // Calculate status counts
   const getCountByStatus = (status: string) => {
     if (status === 'All') return resources.length;
@@ -761,11 +821,20 @@ export function LibraryView() {
             </div>
 
             {/* Catalog list header */}
-            <div className="flex justify-between items-center py-1">
+            <div ref={listTopRef} className="flex justify-between items-center py-1 scroll-mt-4">
               <div>
                 <h3 className="text-sm font-bold text-brand-text uppercase tracking-tight">Active Academic Slates</h3>
-                <p className="text-[11px] text-brand-muted">Showing {filteredResources.length} items on current workspace review</p>
+                <p className="text-[11px] text-brand-muted">
+                  {filteredResources.length === 0
+                    ? 'No items on current workspace review'
+                    : `Showing ${pageStart + 1}–${pageStart + paginatedResources.length} of ${filteredResources.length} items`}
+                </p>
               </div>
+              {totalPages > 1 && (
+                <span className="text-[11px] font-bold text-brand-muted">
+                  Page {safePage} / {totalPages}
+                </span>
+              )}
             </div>
 
             {/* RESOURCE LIST GRID - Card fields: Thumbnail, Title, Category, Status, Feedback count */}
@@ -779,7 +848,7 @@ export function LibraryView() {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredResources.map(res => {
+                {paginatedResources.map(res => {
                   return (
                     <motion.div
                       layout
@@ -848,6 +917,58 @@ export function LibraryView() {
                   );
                 })}
               </div>
+            )}
+
+            {/* PAGINATION BAR */}
+            {totalPages > 1 && (
+              <nav className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-1" aria-label="Library pagination">
+                <p className="text-[11px] text-brand-muted font-medium order-2 sm:order-1">
+                  Showing <span className="font-bold text-brand-text">{pageStart + 1}–{pageStart + paginatedResources.length}</span> of <span className="font-bold text-brand-text">{filteredResources.length}</span>
+                </p>
+
+                <div className="flex items-center gap-1 order-1 sm:order-2">
+                  <button
+                    type="button"
+                    onClick={() => goToPage(safePage - 1)}
+                    disabled={safePage === 1}
+                    className="flex items-center gap-1 h-8 px-2.5 rounded-lg border border-brand-border bg-white text-[11px] font-bold text-brand-text hover:border-brand-primary hover:bg-brand-highlight/40 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-brand-border transition-all"
+                    aria-label="Previous page"
+                  >
+                    <ChevronLeft className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">Prev</span>
+                  </button>
+
+                  {pageItems.map((item, i) =>
+                    item === 'ellipsis' ? (
+                      <span key={`e-${i}`} className="w-8 h-8 flex items-center justify-center text-brand-muted text-xs select-none">…</span>
+                    ) : (
+                      <button
+                        key={item}
+                        type="button"
+                        onClick={() => goToPage(item)}
+                        aria-current={item === safePage ? 'page' : undefined}
+                        className={`min-w-8 h-8 px-1 rounded-lg border text-[11px] font-bold transition-all
+                          ${item === safePage
+                            ? 'bg-brand-primary border-brand-primary text-brand-text shadow-2xs'
+                            : 'bg-white border-brand-border text-brand-text hover:border-brand-primary hover:bg-brand-highlight/40'}`}
+                      >
+                        {item}
+                      </button>
+                    )
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => goToPage(safePage + 1)}
+                    disabled={safePage === totalPages}
+                    className="flex items-center gap-1 h-8 px-2.5 rounded-lg border border-brand-border bg-white text-[11px] font-bold text-brand-text hover:border-brand-primary hover:bg-brand-highlight/40 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-white disabled:hover:border-brand-border transition-all"
+                    aria-label="Next page"
+                  >
+                    <span className="hidden sm:inline">Next</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </nav>
             )}
 
             {/* CURIOUS STUDY TRACK QUERY BOX: Fast Recommended Shelf Query Input */}
