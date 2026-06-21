@@ -83,6 +83,36 @@ export interface UserProfile {
   status: 'Learning Now' | 'Away' | 'On Break';
 }
 
+// 'SuperAdmin' is an all-access account that can act as any role.
+export type UserRole = 'Trainee' | 'Trainer' | 'Admin' | 'SuperAdmin';
+
+// A full directory user (loaded from src/data/users.json). Extends the logged-in
+// UserProfile with an id and a role so every type of user can be listed.
+export interface User extends UserProfile {
+  id: string;
+  role: UserRole;
+  // Login password for this user. Credentials are checked against users.json;
+  // there are no hardcoded credentials anywhere else.
+  password: string;
+  // Set to true on exactly one user — that user is pre-filled on the login form.
+  isCurrentUser?: boolean;
+}
+
+// A feedback board entry (loaded from src/data/feedbacks.json).
+export interface FeedbackEntry {
+  id: string;
+  title: string;
+  description: string;
+  userType: UserRole;
+  classification: 'Problem' | 'Suggestion' | 'User Experience';
+  severity: 'Critical' | 'Medium' | 'Low';
+  votes: number;
+  date: string;
+  courseName?: string;
+  userName?: string;
+  userAvatar?: string;
+}
+
 export interface FeedbackSubmission {
   id: string;
   subject: string;

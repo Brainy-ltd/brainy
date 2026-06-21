@@ -22,101 +22,45 @@ import {
   Activity,
   Layers,
 } from "lucide-react";
-import { Course, UserProfile } from "../types";
+import { Course, UserProfile, FeedbackEntry } from "../types";
+import feedbacksData from "../data/feedbacks.json";
 
 interface FeedbackViewProps {
   currentUser?: UserProfile;
   courses?: Course[];
 }
 
-interface FeedbackItem {
-  id: string;
-  title: string;
-  description: string;
-  userType: "Trainer" | "Trainee" | "Admin";
-  classification: "Problem" | "Suggestion" | "User Experience";
-  severity: "Critical" | "Medium" | "Low";
-  votes: number;
-  date: string;
-  courseName?: string;
-  userName?: string;
-  userAvatar?: string;
-}
+// Feedback shape used across this view (see types.ts: FeedbackEntry).
+type FeedbackItem = FeedbackEntry;
 
-const INITIAL_FEEDBACKS: FeedbackItem[] = [
-  {
-    id: "fb-4",
-    title: "Batch digital certificate issuance crashes browser",
-    description:
-      "Attempting to issue digital badges and certificates to over 200 graduating trainees trigger request limits or timeouts.",
-    userType: "Admin",
-    classification: "Problem",
-    severity: "Critical",
-    votes: 38,
-    date: "May 22, 2026",
-    courseName: "General Platform Feedback",
-    userName: "System Admin",
-    userAvatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuDVFbnn54KNh5LCKf9ltv1iiLKRzADBsXWuVhB9h0sQ1mfJmc727k3OxcQbOXAtdUAoKXJ_FnROBShlRHls98ASP5xlU_AuTZoB7L_Tu3uH2FRbERQ7qTYEvQWtJKZmid8WLMr2A2EtKvmLTIFTegXH0bWoF2nWbbNDBag-TzZoMbl3FacbqkqqbxshDi5sSxEfi6gMm921ioefK-JlMTZ-rMFG8ec0vDu7tKiSw6z6Q3q9_y3aT4vdX-pHAm9BUr4IPOM3S-I7cB24"
-  },
-  {
-    id: "fb-1",
-    title: "Bellman-Ford Dynamic Programming proof visualization is extremely clear",
-    description:
-      "The animated graph flows in standard recitation class slide package helped clarify path relaxing and cycles completely.",
-    userType: "Trainee",
-    classification: "User Experience",
-    severity: "Low",
-    votes: 28,
-    date: "May 24, 2026",
-    courseName: "Advanced Algorithm Design",
-    userName: "Alex Rivera",
-    userAvatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuDjik0VWNmJUOJowDTTm2Y4zwHdcxwoUJ2wpR7fh9OIDdf9BTxn0fUvqgvyrShx32FmNmq3VIiEf03E1ICIwLm6LdsazRSM53zqAZuFw1wlmFDZhJd01Vi4RQfS-CG26QF5aoGb6UijfKAFR4xCk_tSndaG7OaxaBZ3nKuJ9WjA5E30VgHnhTe2NCMmaxnkJXAep8xfPtNofWQKCVXSy9Fcp8aAr01z-RcMLckkUAJcMOXgJJ4naZqkAIndpbORcQOAEAt1iXJJE5W8"
-  },
-  {
-    id: "fb-2",
-    title: "Provide backpropagation interactive gradient graphing labs",
-    description:
-      "Having an live interactive slider to change weight gradients in neural layers would make mathematical intuition much better.",
-    userType: "Trainee",
-    classification: "Suggestion",
-    severity: "Medium",
-    votes: 34,
-    date: "May 24, 2026",
-    courseName: "Neural Networks 101",
-    userName: "Emma Watson",
-    userAvatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=80"
-  },
-  {
-    id: "fb-3",
-    title: "Request for more practical examples in software engineering architecture lectures",
-    description:
-      "The theoretical architectural pattern modules are fine, but a real walk-through of an MVC structure in class would be wonderful.",
-    userType: "Trainee",
-    classification: "Suggestion",
-    severity: "Medium",
-    votes: 25,
-    date: "May 23, 2026",
-    courseName: "Software Engineering",
-    userName: "Alex Rivera",
-    userAvatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuDjik0VWNmJUOJowDTTm2Y4zwHdcxwoUJ2wpR7fh9OIDdf9BTxn0fUvqgvyrShx32FmNmq3VIiEf03E1ICIwLm6LdsazRSM53zqAZuFw1wlmFDZhJd01Vi4RQfS-CG26QF5aoGb6UijfKAFR4xCk_tSndaG7OaxaBZ3nKuJ9WjA5E30VgHnhTe2NCMmaxnkJXAep8xfPtNofWQKCVXSy9Fcp8aAr01z-RcMLckkUAJcMOXgJJ4naZqkAIndpbORcQOAEAt1iXJJE5W8"
+// Seed feedbacks come from src/data/feedbacks.json — edit that file to change them.
+const INITIAL_FEEDBACKS: FeedbackItem[] = feedbacksData as FeedbackItem[];
+
+// Signature of the current file contents. If feedbacks.json is edited the
+// signature changes, which re-seeds from the file (so your edits always show).
+// While the file is unchanged, feedback you submit in-app persists across reloads.
+const FEEDBACKS_SIG = JSON.stringify(INITIAL_FEEDBACKS);
+const STORAGE_KEY = "rtb_lms_feedbacks";
+const STORAGE_SIG_KEY = "rtb_lms_feedbacks_sig";
+
+function loadInitialFeedbacks(): FeedbackItem[] {
+  try {
+    const savedSig = localStorage.getItem(STORAGE_SIG_KEY);
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved && savedSig === FEEDBACKS_SIG) {
+      return JSON.parse(saved);
+    }
+  } catch (e) {
+    /* fall through to file seed */
   }
-];
+  return INITIAL_FEEDBACKS;
+}
 
 export function FeedbackView({ currentUser, courses = [] }: FeedbackViewProps) {
   const [activeTab, setActiveTab] = useState<
     "submit" | "board" | "prioritization"
   >("submit");
-  const [feedbacks, setFeedbacks] = useState<FeedbackItem[]>(() => {
-    const saved = localStorage.getItem("rtb_lms_feedbacks");
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        return INITIAL_FEEDBACKS;
-      }
-    }
-    return INITIAL_FEEDBACKS;
-  });
+  const [feedbacks, setFeedbacks] = useState<FeedbackItem[]>(loadInitialFeedbacks);
 
   // Form Fields
   const [title, setTitle] = useState("");
@@ -158,9 +102,11 @@ export function FeedbackView({ currentUser, courses = [] }: FeedbackViewProps) {
   const [chatInput, setChatInput] = useState("");
   const [chatLoading, setChatLoading] = useState(false);
 
-  // Sync with LocalStorage
+  // Persist runtime changes, tagged with the current file signature so that
+  // editing feedbacks.json always re-seeds instead of showing stale data.
   useEffect(() => {
-    localStorage.setItem("rtb_lms_feedbacks", JSON.stringify(feedbacks));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(feedbacks));
+    localStorage.setItem(STORAGE_SIG_KEY, FEEDBACKS_SIG);
   }, [feedbacks]);
 
   // Handle Form Submission

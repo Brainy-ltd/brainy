@@ -1,13 +1,15 @@
-import { Course, Book, CalendarEvent, Chat, GPAHistory, UserProfile, ResourceItem } from './types';
+import { Course, Book, CalendarEvent, Chat, GPAHistory, UserProfile, User, ResourceItem } from './types';
+import usersData from './data/users.json';
+import libraryData from './data/library.json';
 
-export const initialUserProfile: UserProfile = {
-  name: 'Alex Rivera',
-  email: 'alex.rivera@scholar.edu',
-  academicYear: 'Senior',
-  major: 'Computer Science',
-  avatarUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDjik0VWNmJUOJowDTTm2Y4zwHdcxwoUJ2wpR7fh9OIDdf9BTxn0fUvqgvyrShx32FmNmq3VIiEf03E1ICIwLm6LdsazRSM53zqAZuFw1wlmFDZhJd01Vi4RQfS-CG26QF5aoGb6UijfKAFR4xCk_tSndaG7OaxaBZ3nKuJ9WjA5E30VgHnhTe2NCMmaxnkJXAep8xfPtNofWQKCVXSy9Fcp8aAr01z-RcMLckkUAJcMOXgJJ4naZqkAIndpbORcQOAEAt1iXJJE5W8',
-  status: 'Learning Now',
-};
+// All directory users (Trainees, Trainers, Admins) come from src/data/users.json.
+// Edit that file to add users or change their profile image (avatarUrl).
+export const users: User[] = usersData as User[];
+
+// The logged-in profile is the user flagged "isCurrentUser": true (falls back to
+// the first user in the file).
+export const initialUserProfile: UserProfile =
+  users.find((u) => u.isCurrentUser) ?? users[0];
 
 // Course images
 const IMAGE_ALGO = 'https://lh3.googleusercontent.com/aida-public/AB6AXuA5SSx6n765uPJcOV3lpd0zW-ScgFpNxD9gMH1zqjbDO6KWQpu2v56fh3kRs63xdqdMdL5ccZHU6sEyVWP2N6RsWaVWzi81WtEPLJy4OLEiyMrM6TIX2BmAHI6-EdYNDPWdPvYFj6KsiiYPmGSLimzPiJh1yIBhJBX31zF3spGx0aXq9URwCVFHXMAAsRFl-5lDrZD0dscztyu1DJNEQuzxUuASkQNvaxkZdDKAzN6iP2Cwqe_oqLxoMUgIkon_1yJ6XdYqv-srAQvI';
@@ -321,130 +323,10 @@ export const initialGpaHistory: GPAHistory[] = [
   { semester: "SP '24", gpa: 3.94 },
 ];
 
-export const initialResources: ResourceItem[] = [
-  {
-    id: 'res-1',
-    title: 'Advanced Algorithmic Paradigms & Quantum Circuits',
-    author: 'Dr. Alan Turing Jr.',
-    category: 'Computing',
-    status: 'Published',
-    format: 'PDF',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&q=80&w=200',
-    description: 'Comprehensive analysis of multi-gate algorithms, recursive complexity classes, dynamic programming optimizations, and Shor\'s factorization workflows.',
-    size: '4.8 MB',
-    views: 342,
-    downloads: 129,
-    createdAt: 'May 12, 2026',
-    versions: [
-      {
-        version: 'v1.0',
-        date: 'May 12, 2026',
-        author: 'Dr. Alan Turing Jr.',
-        changelog: 'First edition published after standard administrative peer approval.'
-      }
-    ],
-    feedbacks: [
-      {
-        id: 'feed-1',
-        author: 'Prof. Sarah Chen',
-        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=80',
-        comment: 'Excellent proofs on dynamic programming optimization bounds. Highly clear diagram mappings.',
-        rating: 5,
-        timestamp: 'May 14, 2026'
-      }
-    ]
-  },
-  {
-    id: 'res-2',
-    title: 'Gradient Descent Optimizers in Neural Processing',
-    author: 'Prof. Sarah Chen',
-    category: 'Computing',
-    status: 'Feedback Stage',
-    format: 'Slide',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&q=80&w=200',
-    description: 'A study on adaptive learning rates, Adam, RMSProp, and momentum coefficients in fully connected deep architectures.',
-    size: '8.1 MB',
-    views: 110,
-    downloads: 32,
-    createdAt: 'May 24, 2026',
-    versions: [
-      {
-        version: 'v0.1-Draft',
-        date: 'May 24, 2026',
-        author: 'Prof. Sarah Chen',
-        changelog: 'Initial presentation deck compiled for syllabus feedback.'
-      }
-    ],
-    feedbacks: []
-  },
-  {
-    id: 'res-3',
-    title: 'Introduction to Structural Geology and Plate Kinetics',
-    author: 'Dr. Elena Volkov',
-    category: 'Science',
-    status: 'Under Review',
-    format: 'Document',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=200',
-    description: 'Analytical measurements on tectonic deformation vectors, seismic velocity anomalies, and mineral crystallization depths.',
-    size: '2.3 MB',
-    views: 89,
-    downloads: 14,
-    createdAt: 'May 20, 2026',
-    versions: [
-      {
-        version: 'v1.1',
-        date: 'May 23, 2026',
-        author: 'Dr. Elena Volkov',
-        changelog: 'Added higher resolution topographic figures and contour definitions.'
-      },
-      {
-        version: 'v1.0',
-        date: 'May 20, 2026',
-        author: 'Dr. Elena Volkov',
-        changelog: 'Initial Draft submitted to library.'
-      }
-    ],
-    feedbacks: []
-  }
-];
+// The library catalog, staff recommendations, and activity log all come from
+// src/data/library.json (RTB / Rwanda based). Edit that file to change them.
+export const initialResources: ResourceItem[] = libraryData.resources as ResourceItem[];
 
-export const initialActivityLog = [
-  {
-    id: 'log-1',
-    text: 'Dr. Alan Turing Jr. compiled and published "Advanced Algorithmic Paradigms"',
-    time: '2 hours ago',
-    resourceTitle: 'Advanced Algorithmic Paradigms',
-    type: 'upload'
-  },
-  {
-    id: 'log-2',
-    text: 'Prof. Sarah Chen submitted dynamic slides on "Gradient Descent Optimizers"',
-    time: 'Yesterday',
-    resourceTitle: 'Gradient Descent Optimizers',
-    type: 'upload'
-  }
-];
+export const recommendedResources = libraryData.recommendations;
 
-export const recommendedResources = [
-  {
-    id: 'rec-1',
-    title: 'Quantum Cryptography & Key Exchanges Seminars',
-    author: 'Dr. Elena Volkov',
-    category: 'Computing',
-    size: '12.4 MB'
-  },
-  {
-    id: 'rec-2',
-    title: 'Kinetics of Materials & Thermo Dynamics',
-    author: 'Prof. John Smith',
-    category: 'Engineering',
-    size: '19.1 MB'
-  },
-  {
-    id: 'rec-3',
-    title: 'Linear Algebra Applications in Computer Graphics',
-    author: 'Dr. Marcus Knight',
-    category: 'Mathematics',
-    size: '4.5 MB'
-  }
-];
+export const initialActivityLog = libraryData.activityLogs;

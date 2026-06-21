@@ -21,7 +21,7 @@ import { LibraryView } from './components/LibraryView';
 import { FeedbackView } from './components/FeedbackView';
 import { LoginView } from './components/LoginView';
 import { CourseWorkspaceView } from './components/CourseWorkspaceView';
-import logoBrainy from '../logo_brainy.jpeg';
+import logoBrainy from '../logo_brainy.png';
 
 // Icons
 import { 
@@ -315,7 +315,14 @@ export default function App() {
   const unreadCount = chats.reduce((total, c) => total + c.unreadCount, 0);
 
   if (!isLoggedIn) {
-    return <LoginView onLogin={() => setIsLoggedIn(true)} />;
+    return (
+      <LoginView
+        onLogin={(user) => {
+          setUserProfile(user);
+          setIsLoggedIn(true);
+        }}
+      />
+    );
   }
 
   return (
@@ -333,10 +340,10 @@ export default function App() {
           {/* Logo Brand Header */}
           <div className="p-6 border-b border-outline-variant/50 shrink-0 relative flex flex-col items-center">
             <div className="flex flex-col items-center text-center py-2 select-none">
-              <img 
-                src={logoBrainy} 
-                alt="Logo" 
-                className="w-24 h-24 rounded-2xl border border-primary shrink-0 select-none transition-transform hover:scale-105 duration-300 object-cover shadow-xs"
+              <img
+                src={logoBrainy}
+                alt="Logo"
+                className="w-36 h-36 shrink-0 select-none transition-transform hover:scale-105 duration-300 object-contain"
               />
               <span className="text-[9px] text-warm-gray font-black tracking-widest uppercase mt-2.5">ACADEMIC PORTAL</span>
             </div>
