@@ -1,32 +1,27 @@
-import express from "express";
 import path from "path";
+import express from "express";
 import dotenv from "dotenv";
 import { createServer as createViteServer } from "vite";
-import { registerRoutes } from "./routes";
+import app from "./api/index";
 
 // Load .env.local first (developer's real key), then fall back to .env.
 // Values already present in the environment are not overridden.
 dotenv.config({ path: [".env.local", ".env"] });
 
-const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 
-app.use(express.json());
-
-// Register all Brainy API routes (shared with the Vercel serverless entry).
-registerRoutes(app);
-
-// Configure Vite middleware (dev) or static file serving (prod).
+// `app` already has express.json() and all API routes registered (api/index.ts).
+// Here we only add frontend serving for local dev/prod and start listening.
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
-    // Development mode
+    // Development mode — Vite as middleware.
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
     });
     app.use(vite.middlewares);
   } else {
-    // Production mode
+    // Production mode — serve the built SPA.
     const distPath = path.join(process.cwd(), "dist");
     app.use(express.static(distPath));
     app.get("*", (req, res) => {
