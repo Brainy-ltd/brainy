@@ -1,0 +1,1367 @@
+{
+  "resources": [
+    {
+      "id": "res-1",
+      "title": "Web Application Development with PHP & MySQL (RTB Level 4)",
+      "author": "Eng. Niyonsenga Eric",
+      "category": "Software Development",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/rtb-web-dev/240/320",
+      "description": "An RTB-aligned module covering dynamic web applications: PHP fundamentals, MySQL databases, form handling, sessions, and deploying a school management portal as a capstone project.",
+      "size": "5.2 MB",
+      "views": 412,
+      "downloads": 187,
+      "createdAt": "May 12, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 12, 2026",
+          "author": "Eng. Niyonsenga Eric",
+          "changelog": "First edition aligned to the RTB Software Development curriculum, Level 4."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-1",
+          "author": "Mukamana Aline",
+          "avatar": "https://ui-avatars.com/api/?name=Mukamana+Aline&background=random&size=80",
+          "comment": "Very clear examples. The school portal capstone helped me understand sessions and authentication.",
+          "rating": 5,
+          "timestamp": "May 14, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-2",
+      "title": "Computer Networking & CCNA Fundamentals",
+      "author": "Tr. Habimana Faustin",
+      "category": "Networking",
+      "status": "Feedback Stage",
+      "format": "Slide",
+      "thumbnailUrl": "https://picsum.photos/seed/rtb-networking/240/320",
+      "description": "Slide deck on network topologies, IP addressing and subnetting, switching and routing basics, and configuring a small office LAN using Cisco Packet Tracer.",
+      "size": "8.1 MB",
+      "views": 234,
+      "downloads": 96,
+      "createdAt": "May 24, 2026",
+      "versions": [
+        {
+          "version": "v0.9-Draft",
+          "date": "May 24, 2026",
+          "author": "Tr. Habimana Faustin",
+          "changelog": "Initial presentation deck shared for peer feedback."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-3",
+      "title": "Industrial Electrical Installation Handbook",
+      "author": "Eng. Uwimana Claudine",
+      "category": "Electronics",
+      "status": "Under Review",
+      "format": "Document",
+      "thumbnailUrl": "https://picsum.photos/seed/rtb-electrical/240/320",
+      "description": "Practical guide to single-phase and three-phase installations, circuit protection, earthing systems, and Rwanda Energy Group (REG) wiring safety standards for technical trainees.",
+      "size": "3.7 MB",
+      "views": 156,
+      "downloads": 61,
+      "createdAt": "May 20, 2026",
+      "versions": [
+        {
+          "version": "v1.1",
+          "date": "May 23, 2026",
+          "author": "Eng. Uwimana Claudine",
+          "changelog": "Added updated earthing diagrams and REG safety checklist."
+        },
+        {
+          "version": "v1.0",
+          "date": "May 20, 2026",
+          "author": "Eng. Uwimana Claudine",
+          "changelog": "Initial draft submitted to the library."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-4",
+      "title": "Multimedia & Motion Graphics Practical Project Series",
+      "author": "Tr. Ishimwe Kevin",
+      "category": "Multimedia",
+      "status": "Approved",
+      "format": "Video",
+      "thumbnailUrl": "https://picsum.photos/seed/rtb-multimedia/240/320",
+      "description": "Recorded practical sessions on graphic design, video editing, and motion graphics using open-source tools, with a community-focused storytelling project on Made-in-Rwanda products.",
+      "size": "120 MB",
+      "views": 389,
+      "downloads": 142,
+      "createdAt": "May 18, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 18, 2026",
+          "author": "Tr. Ishimwe Kevin",
+          "changelog": "Approved practical video series for the Multimedia trade."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-2",
+          "author": "Gatete Patrick",
+          "avatar": "https://ui-avatars.com/api/?name=Gatete+Patrick&background=random&size=80",
+          "comment": "The motion graphics section is excellent. More examples on color grading would help.",
+          "suggestion": "Add a lesson on color grading workflows.",
+          "rating": 4,
+          "timestamp": "May 21, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-5",
+      "title": "Food Processing & Preservation Techniques",
+      "author": "Tr. Umutoni Sandrine",
+      "category": "Food Processing",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/rtb-food/240/320",
+      "description": "Covers hygienic food handling, fruit and vegetable preservation, packaging, and small-scale agro-processing aligned with Rwanda Standards Board (RSB) guidelines.",
+      "size": "4.1 MB",
+      "views": 201,
+      "downloads": 88,
+      "createdAt": "May 10, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 10, 2026",
+          "author": "Tr. Umutoni Sandrine",
+          "changelog": "Published first edition for the Food Processing trade."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-6",
+      "title": "Introduction to Database Systems & SQL",
+      "author": "Eng. Bizimana Jean",
+      "category": "Software Development",
+      "status": "Draft",
+      "format": "Document",
+      "thumbnailUrl": "https://picsum.photos/seed/rtb-database/240/320",
+      "description": "Foundations of relational databases, entity-relationship modeling, normalization, and writing SQL queries, with a sample student records database exercise.",
+      "size": "2.9 MB",
+      "views": 78,
+      "downloads": 19,
+      "createdAt": "May 26, 2026",
+      "versions": [
+        {
+          "version": "v0.1-Draft",
+          "date": "May 26, 2026",
+          "author": "Eng. Bizimana Jean",
+          "changelog": "Initial draft created for review."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-7",
+      "title": "Building Construction Foundations and Masonry Basics",
+      "author": "Tr. Nshuti Emmanuel",
+      "category": "Building Construction",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/masonry-basics/240/320",
+      "description": "A textbook covering bricklaying, concrete mixing ratios, leveling, and foundation design principles following RTB Level 3 standards.",
+      "size": "6.4 MB",
+      "views": 310,
+      "downloads": 145,
+      "createdAt": "April 15, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "April 15, 2026",
+          "author": "Tr. Nshuti Emmanuel",
+          "changelog": "Official release for Level 3 TSS trainees."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-3",
+          "author": "Mugisha Olivier",
+          "avatar": "https://ui-avatars.com/api/?name=Mugisha+Olivier&background=random&size=80",
+          "comment": "The step-by-step foundation alignment instructions are very useful.",
+          "rating": 5,
+          "timestamp": "April 20, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-8",
+      "title": "Automobile Engine Diagnosis and Maintenance",
+      "author": "Eng. Keza Diane",
+      "category": "Automobile Technology",
+      "status": "Published",
+      "format": "Video",
+      "thumbnailUrl": "https://picsum.photos/seed/automobile-engine/240/320",
+      "description": "Instructional video series on troubleshooting four-stroke engines, fuel system calibration, and electronic sensor scanning procedures for secondary technical students.",
+      "size": "180 MB",
+      "views": 520,
+      "downloads": 230,
+      "createdAt": "March 22, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "March 22, 2026",
+          "author": "Eng. Keza Diane",
+          "changelog": "Completed video compilation for automotive trade workshops."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-9",
+      "title": "Pattern Making and Garment Construction (Level 3)",
+      "author": "Tr. Mutoni Marie",
+      "category": "Tailoring & Fashion Design",
+      "status": "Approved",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/pattern-making/240/320",
+      "description": "Comprehensive reference guide for body measurement, drafting basic block patterns, and assembly workflows for local market uniforms and garments.",
+      "size": "4.8 MB",
+      "views": 195,
+      "downloads": 82,
+      "createdAt": "May 02, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 02, 2026",
+          "author": "Tr. Mutoni Marie",
+          "changelog": "Approved by RTB quality assurance team."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-10",
+      "title": "Arc Welding and Metal Fabrication Practice",
+      "author": "Eng. Gasana Bosco",
+      "category": "Welding & Metal Fabrication",
+      "status": "Published",
+      "format": "Link",
+      "thumbnailUrl": "https://picsum.photos/seed/arc-welding/240/320",
+      "description": "Interactive online tutorials focusing on shielded metal arc welding (SMAW) positions, safety protective equipment, and joint preparation methods.",
+      "size": "1.2 MB",
+      "views": 174,
+      "downloads": 43,
+      "createdAt": "May 19, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 19, 2026",
+          "author": "Eng. Gasana Bosco",
+          "changelog": "Linked digital handbook for workshop safety instructions."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-4",
+          "author": "Karasira Jean",
+          "avatar": "https://ui-avatars.com/api/?name=Karasira+Jean&background=random&size=80",
+          "comment": "Good layout of T-joint welding techniques, but please add gas welding steps.",
+          "suggestion": "Include oxy-acetylene welding protocols.",
+          "rating": 4,
+          "timestamp": "May 25, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-11",
+      "title": "Land Surveying Instruments and Topography Basics",
+      "author": "Tr. Uwera Solange",
+      "category": "Surveying",
+      "status": "Under Review",
+      "format": "Document",
+      "thumbnailUrl": "https://picsum.photos/seed/land-surveying/240/320",
+      "description": "Instruction manual for handling total stations, digital levels, and executing baseline measurements for TSS civil engineering streams.",
+      "size": "5.5 MB",
+      "views": 112,
+      "downloads": 29,
+      "createdAt": "June 01, 2026",
+      "versions": [
+        {
+          "version": "v0.8",
+          "date": "June 01, 2026",
+          "author": "Tr. Uwera Solange",
+          "changelog": "Draft sent to school inspectors for verification."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-12",
+      "title": "Culinary Arts: Pastry and Bakery Operations",
+      "author": "Tr. Gakwaya Christian",
+      "category": "Hospitality & Culinary Arts",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/pastry-bakery/240/320",
+      "description": "Practical modules for commercial baking, dough formulas, temperature control, and hygiene protocols suited for hotel operations trainees.",
+      "size": "7.3 MB",
+      "views": 288,
+      "downloads": 114,
+      "createdAt": "April 29, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "April 29, 2026",
+          "author": "Tr. Gakwaya Christian",
+          "changelog": "Initial rollout across regional TSS hospitality labs."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-13",
+      "title": "Carpentry Joints and Timber Framework",
+      "author": "Tr. Ndahimana Faustin",
+      "category": "Carpentry & Joinery",
+      "status": "Feedback Stage",
+      "format": "Slide",
+      "thumbnailUrl": "https://picsum.photos/seed/carpentry-joints/240/320",
+      "description": "Presentation deck outlining technical drawings of mortise-and-tenon joints, dovetails, and roofing timber installation procedures.",
+      "size": "3.9 MB",
+      "views": 94,
+      "downloads": 31,
+      "createdAt": "June 10, 2026",
+      "versions": [
+        {
+          "version": "v0.9",
+          "date": "June 10, 2026",
+          "author": "Tr. Ndahimana Faustin",
+          "changelog": "Shared within the carpentry training community for comments."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-14",
+      "title": "Introduction to Microcontrollers and Arduino Basics",
+      "author": "Eng. Tuyishime Jean Paul",
+      "category": "Electronics",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/arduino-basics/240/320",
+      "description": "A student-friendly introduction to digital electronics, wiring breadboards, and writing basic C++ code to control LEDs and light sensors.",
+      "size": "3.4 MB",
+      "views": 340,
+      "downloads": 162,
+      "createdAt": "May 05, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 05, 2026",
+          "author": "Eng. Tuyishime Jean Paul",
+          "changelog": "Finalized document containing classroom hardware exercises."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-5",
+          "author": "Umutoni Aline",
+          "avatar": "https://ui-avatars.com/api/?name=Umutoni+Aline&background=random&size=80",
+          "comment": "The schematic layouts are easy to replicate in the school laboratory.",
+          "rating": 5,
+          "timestamp": "May 10, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-15",
+      "title": "Linux System Administration Basics for TSS",
+      "author": "Tr. Habimana Faustin",
+      "category": "Networking",
+      "status": "Draft",
+      "format": "Document",
+      "thumbnailUrl": "https://picsum.photos/seed/linux-admin/240/320",
+      "description": "Laboratory worksheets introducing command-line utilities, user group permissions, and file management in Ubuntu environments for Level 4 technicians.",
+      "size": "2.1 MB",
+      "views": 65,
+      "downloads": 12,
+      "createdAt": "June 14, 2026",
+      "versions": [
+        {
+          "version": "v0.1",
+          "date": "June 14, 2026",
+          "author": "Tr. Habimana Faustin",
+          "changelog": "First draft of the lab session workbook."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-16",
+      "title": "Fruit Juice and Jam Production Standards",
+      "author": "Tr. Umutoni Sandrine",
+      "category": "Food Processing",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/fruit-juice/240/320",
+      "description": "Step-by-step processing lines for local fruits, implementing pasteurization, acidity tests, and RSB compliant batch labeling rules.",
+      "size": "4.5 MB",
+      "views": 215,
+      "downloads": 99,
+      "createdAt": "April 18, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "April 18, 2026",
+          "author": "Tr. Umutoni Sandrine",
+          "changelog": "Official edition for Food Processing Level 4 workshops."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-17",
+      "title": "Front-End Web UI Layouts with CSS and Flexbox",
+      "author": "Eng. Niyonsenga Eric",
+      "category": "Software Development",
+      "status": "Published",
+      "format": "Slide",
+      "thumbnailUrl": "https://picsum.photos/seed/css-flexbox/240/320",
+      "description": "Visual presentation materials teaching responsive layouts, grid alignment, and building simple adaptive web pages for small screens.",
+      "size": "4.2 MB",
+      "views": 277,
+      "downloads": 134,
+      "createdAt": "May 15, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 15, 2026",
+          "author": "Eng. Niyonsenga Eric",
+          "changelog": "Published layout templates for dynamic UI training."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-18",
+      "title": "Audio Recording and Editing Using Audacity",
+      "author": "Tr. Ishimwe Kevin",
+      "category": "Multimedia",
+      "status": "Published",
+      "format": "Video",
+      "thumbnailUrl": "https://picsum.photos/seed/audio-audacity/240/320",
+      "description": "Video tutorials teaching microphone setups, noise reduction techniques, and multi-track mixing for school radio production and local advertisements.",
+      "size": "145 MB",
+      "views": 312,
+      "downloads": 115,
+      "createdAt": "May 22, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 22, 2026",
+          "author": "Tr. Ishimwe Kevin",
+          "changelog": "Final video module uploaded for media lab coursework."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-6",
+          "author": "Nsengiyumva Eric",
+          "avatar": "https://ui-avatars.com/api/?name=Nsengiyumva+Eric&background=random&size=80",
+          "comment": "Perfect tutorial for beginners. The voice clarity filters are well explained.",
+          "rating": 5,
+          "timestamp": "May 28, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-19",
+      "title": "Chassis Systems and Brake Repairs",
+      "author": "Tr. Nshuti Emmanuel",
+      "category": "Automobile Technology",
+      "status": "Approved",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/chassis-brake/240/320",
+      "description": "Detailed illustrations of hydraulic braking loops, master cylinder replacement, and drum brake adjustments according to standard workshop procedures.",
+      "size": "5.9 MB",
+      "views": 240,
+      "downloads": 102,
+      "createdAt": "May 11, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 11, 2026",
+          "author": "Tr. Nshuti Emmanuel",
+          "changelog": "Approved manual for high school mechanics programs."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-20",
+      "title": "Electrical Drawing and Schematic Symbols",
+      "author": "Eng. Uwimana Claudine",
+      "category": "Electronics",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/electrical-drawing/240/320",
+      "description": "Standardized blueprints for domestic electrical wiring diagrams, architectural electrical symbols, and protective relay schematics.",
+      "size": "6.1 MB",
+      "views": 188,
+      "downloads": 74,
+      "createdAt": "May 28, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 28, 2026",
+          "author": "Eng. Uwimana Claudine",
+          "changelog": "First official layout version issued."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-21",
+      "title": "Concrete Mixing and Mortar Application Guides",
+      "author": "Tr. Murenzi Jean",
+      "category": "Building Construction",
+      "status": "Draft",
+      "format": "Document",
+      "thumbnailUrl": "https://picsum.photos/seed/concrete-mixing/240/320",
+      "description": "Practical classroom handouts outlining water-to-cement ratios, slump test verification, and wall plastering techniques for TSS Masonry students.",
+      "size": "2.7 MB",
+      "views": 54,
+      "downloads": 10,
+      "createdAt": "June 16, 2026",
+      "versions": [
+        {
+          "version": "v0.1",
+          "date": "June 16, 2026",
+          "author": "Tr. Murenzi Jean",
+          "changelog": "Draft created for upcoming term workshop routines."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-22",
+      "title": "Textile Fibers and Fabric Identification Lab Manual",
+      "author": "Tr. Mutoni Marie",
+      "category": "Tailoring & Fashion Design",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/textile-fibers/240/320",
+      "description": "Procedures for burn tests and texture evaluations to categorize natural cotton, synthetic polyesters, and local blends used in sewing design projects.",
+      "size": "3.2 MB",
+      "views": 118,
+      "downloads": 49,
+      "createdAt": "May 08, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 08, 2026",
+          "author": "Tr. Mutoni Marie",
+          "changelog": "Released student catalog of textiles."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-23",
+      "title": "IP Subnetting and VLAN Configuration Worksheets",
+      "author": "Tr. Habimana Faustin",
+      "category": "Networking",
+      "status": "Published",
+      "format": "Dataset",
+      "thumbnailUrl": "https://picsum.photos/seed/ip-subnetting/240/320",
+      "description": "A set of practical exercises containing subnet calculators, IP address pools, and Cisco commands for virtual local area networks setups.",
+      "size": "1.5 MB",
+      "views": 321,
+      "downloads": 178,
+      "createdAt": "May 16, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 16, 2026",
+          "author": "Tr. Habimana Faustin",
+          "changelog": "Published packet tracer layout variables."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-7",
+          "author": "Ndoli Patrick",
+          "avatar": "https://ui-avatars.com/api/?name=Ndoli+Patrick&background=random&size=80",
+          "comment": "Subnetting practice sheets are challenging but excellent prep material for RTB practical exams.",
+          "rating": 5,
+          "timestamp": "May 20, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-24",
+      "title": "Dairy Processing: Milk Collection and Quality Testing",
+      "author": "Tr. Umutoni Sandrine",
+      "category": "Food Processing",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/dairy-processing/240/320",
+      "description": "Standard operational guidelines for density testing, acidity control, and basic pasteurization schemes in rural milk centers.",
+      "size": "4.9 MB",
+      "views": 167,
+      "downloads": 71,
+      "createdAt": "April 22, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "April 22, 2026",
+          "author": "Tr. Umutoni Sandrine",
+          "changelog": "Initial standard operational manual integration."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-25",
+      "title": "Graphic Design Principles Using Inkscape",
+      "author": "Tr. Ishimwe Kevin",
+      "category": "Multimedia",
+      "status": "Approved",
+      "format": "Slide",
+      "thumbnailUrl": "https://picsum.photos/seed/graphic-inkscape/240/320",
+      "description": "Training templates highlighting vector paths, typography, logo alignment guidelines, and using open-source tools for Made-in-Rwanda product flyers.",
+      "size": "8.5 MB",
+      "views": 290,
+      "downloads": 122,
+      "createdAt": "May 06, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 06, 2026",
+          "author": "Tr. Ishimwe Kevin",
+          "changelog": "Presentation deck approved for multimedia cohorts."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-26",
+      "title": "C++ Programming Fundamentals for Embedded Projects",
+      "author": "Eng. Bizimana Jean",
+      "category": "Software Development",
+      "status": "Under Review",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/cpp-fundamentals/240/320",
+      "description": "Introductory guide covering conditional blocks, functions, array loops, and basic compiler commands for simple automation loops.",
+      "size": "3.8 MB",
+      "views": 145,
+      "downloads": 50,
+      "createdAt": "June 05, 2026",
+      "versions": [
+        {
+          "version": "v0.9",
+          "date": "June 05, 2026",
+          "author": "Eng. Bizimana Jean",
+          "changelog": "Document compiled for Level 3 foundational code classes."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-27",
+      "title": "Steel Truss Fabrication and Structural Welding",
+      "author": "Eng. Gasana Bosco",
+      "category": "Welding & Metal Fabrication",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/steel-truss/240/320",
+      "description": "Practical guide on layout configurations, angle cuts, structural joint constraints, and rust prevention methods for light industrial roofs.",
+      "size": "5.1 MB",
+      "views": 192,
+      "downloads": 79,
+      "createdAt": "May 14, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 14, 2026",
+          "author": "Eng. Gasana Bosco",
+          "changelog": "Released for fabrication workshop project use."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-8",
+          "author": "Murenzi David",
+          "avatar": "https://ui-avatars.com/api/?name=Murenzi+David&background=random&size=80",
+          "comment": "The safety calculation parameters for structural beams are clearly presented.",
+          "rating": 4,
+          "timestamp": "May 22, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-28",
+      "title": "Basic Surveying and Leveling Field Notebook",
+      "author": "Tr. Uwera Solange",
+      "category": "Surveying",
+      "status": "Published",
+      "format": "Document",
+      "thumbnailUrl": "https://picsum.photos/seed/surveying-notebook/240/320",
+      "description": "Standard layout formats for field notation, calculating elevations by rise-and-fall methods, and cross-checking measurement tolerances.",
+      "size": "2.3 MB",
+      "views": 139,
+      "downloads": 58,
+      "createdAt": "May 01, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 01, 2026",
+          "author": "Tr. Uwera Solange",
+          "changelog": "Standard field book formats finalized."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-29",
+      "title": "Furniture Joinery and Assembly Worksheets",
+      "author": "Tr. Ndahimana Faustin",
+      "category": "Carpentry & Joinery",
+      "status": "Approved",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/furniture-joinery/240/320",
+      "description": "A comprehensive practical workbook describing tool handling, wood sanding grades, finishing lacquer coatings, and desk construction sequences.",
+      "size": "4.6 MB",
+      "views": 115,
+      "downloads": 42,
+      "createdAt": "May 25, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 25, 2026",
+          "author": "Tr. Ndahimana Faustin",
+          "changelog": "Approved by carpentry lab coordinators."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-30",
+      "title": "Front Office Operations and Guest Relations",
+      "author": "Tr. Gakwaya Christian",
+      "category": "Hospitality & Culinary Arts",
+      "status": "Published",
+      "format": "Slide",
+      "thumbnailUrl": "https://picsum.photos/seed/front-office/240/320",
+      "description": "Slide deck highlighting reception ethics, reservation handling workflows, telephone manners, and complaint logs management under local hospitality standards.",
+      "size": "6.8 MB",
+      "views": 204,
+      "downloads": 81,
+      "createdAt": "May 11, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 11, 2026",
+          "author": "Tr. Gakwaya Christian",
+          "changelog": "Official curriculum support files deployed."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-31",
+      "title": "Domestic Wiring Systems and Lighting Circuits",
+      "author": "Eng. Uwimana Claudine",
+      "category": "Electronics",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/domestic-wiring/240/320",
+      "description": "Provides guidelines for connecting two-way lighting switches, radial power circuits, distribution boards, and residual current devices safely.",
+      "size": "5.3 MB",
+      "views": 260,
+      "downloads": 119,
+      "createdAt": "May 03, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 03, 2026",
+          "author": "Eng. Uwimana Claudine",
+          "changelog": "First formal edition distributed online."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-9",
+          "author": "Niyonkuru Innocent",
+          "avatar": "https://ui-avatars.com/api/?name=Niyonkuru+Innocent&background=random&size=80",
+          "comment": "Excellent details on consumer units layout.",
+          "rating": 5,
+          "timestamp": "May 09, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-32",
+      "title": "Motorcycle Engine Repair and Service Guides",
+      "author": "Tr. Nshuti Emmanuel",
+      "category": "Automobile Technology",
+      "status": "Feedback Stage",
+      "format": "Video",
+      "thumbnailUrl": "https://picsum.photos/seed/motorcycle-repair/240/320",
+      "description": "Step-by-step video demonstration detailing transmission clutch maintenance, carburetor cleaning, and ignition spark plug mapping for common local transit models.",
+      "size": "152 MB",
+      "views": 185,
+      "downloads": 64,
+      "createdAt": "June 12, 2026",
+      "versions": [
+        {
+          "version": "v0.9",
+          "date": "June 12, 2026",
+          "author": "Tr. Nshuti Emmanuel",
+          "changelog": "Initial review clips uploaded to local portal."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-33",
+      "title": "Plumbing System Installation and Pipe Jointing",
+      "author": "Tr. Murenzi Jean",
+      "category": "Building Construction",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/plumbing-installation/240/320",
+      "description": "Practical modules regarding PVC pipe cement bonding, galvanized iron threads cutting, and drainage slopes sizing for basic residential blocks.",
+      "size": "4.4 MB",
+      "views": 150,
+      "downloads": 68,
+      "createdAt": "April 26, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "April 26, 2026",
+          "author": "Tr. Murenzi Jean",
+          "changelog": "Official reference guide for level 3 plumbing modules."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-34",
+      "title": "Industrial Machine Sewing and Safety Protocols",
+      "author": "Tr. Mutoni Marie",
+      "category": "Tailoring & Fashion Design",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/machine-sewing/240/320",
+      "description": "Operating instructions for electrical overlock machines, needle replacement safety routines, and daily motor oil check procedures.",
+      "size": "3.1 MB",
+      "views": 105,
+      "downloads": 39,
+      "createdAt": "May 17, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 17, 2026",
+          "author": "Tr. Mutoni Marie",
+          "changelog": "Textbook added to tailoring digital repositories."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-35",
+      "title": "Network Security Fundamentals and Router Access Lists",
+      "author": "Tr. Habimana Faustin",
+      "category": "Networking",
+      "status": "Approved",
+      "format": "Slide",
+      "thumbnailUrl": "https://picsum.photos/seed/network-security/240/320",
+      "description": "Presentation covering symmetric standard access control lists, basic firewall port configurations, and device password encryption guidelines.",
+      "size": "7.2 MB",
+      "views": 255,
+      "downloads": 113,
+      "createdAt": "May 30, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 30, 2026",
+          "author": "Tr. Habimana Faustin",
+          "changelog": "Slide deck verified against regional assessment briefs."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-36",
+      "title": "Bakery Production: Bread Formulations and Yeast Action",
+      "author": "Tr. Umutoni Sandrine",
+      "category": "Food Processing",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/bakery-production/240/320",
+      "description": "A deep-dive handout into fermentation phases, dough hydration indexes, scaling formulas, and oven baking profiles for small bakeries.",
+      "size": "4.0 MB",
+      "views": 190,
+      "downloads": 82,
+      "createdAt": "May 04, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 04, 2026",
+          "author": "Tr. Umutoni Sandrine",
+          "changelog": "Initial manual issued to agro-processing groups."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-10",
+          "author": "Uwase Carine",
+          "avatar": "https://ui-avatars.com/api/?name=Uwase+Carine&background=random&size=80",
+          "comment": "The flour-to-water ratio charts saved our team workshop experiment parameters.",
+          "rating": 5,
+          "timestamp": "May 12, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-37",
+      "title": "Video Shooting Techniques and Camera Angles",
+      "author": "Tr. Ishimwe Kevin",
+      "category": "Multimedia",
+      "status": "Published",
+      "format": "Video",
+      "thumbnailUrl": "https://picsum.photos/seed/video-shooting/240/320",
+      "description": "A sequence of recorded clips tracking standard camera framing configurations, panning methods, rules of thirds, and field audio acquisition tips.",
+      "size": "165 MB",
+      "views": 334,
+      "downloads": 140,
+      "createdAt": "May 13, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 13, 2026",
+          "author": "Tr. Ishimwe Kevin",
+          "changelog": "First official stream for high school media labs."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-38",
+      "title": "Introduction to Java Programming Syntax",
+      "author": "Eng. Niyonsenga Eric",
+      "category": "Software Development",
+      "status": "Draft",
+      "format": "Document",
+      "thumbnailUrl": "https://picsum.photos/seed/java-syntax/240/320",
+      "description": "Introductory documents tracking variables typing, terminal output handling, simple conditions, and structural loop rules inside Java environments.",
+      "size": "3.1 MB",
+      "views": 90,
+      "downloads": 24,
+      "createdAt": "June 18, 2026",
+      "versions": [
+        {
+          "version": "v0.1",
+          "date": "June 18, 2026",
+          "author": "Eng. Niyonsenga Eric",
+          "changelog": "Draft script for secondary technical students."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-39",
+      "title": "Gas Metal Arc Welding (MIG) Practical Labs",
+      "author": "Eng. Gasana Bosco",
+      "category": "Welding & Metal Fabrication",
+      "status": "Under Review",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/mig-welding/240/320",
+      "description": "Safety checklists, shielding gas configurations, wire feed calibrations, and flat position welding assignments for fabrication trades.",
+      "size": "4.9 MB",
+      "views": 82,
+      "downloads": 18,
+      "createdAt": "June 08, 2026",
+      "versions": [
+        {
+          "version": "v0.9",
+          "date": "June 08, 2026",
+          "author": "Eng. Gasana Bosco",
+          "changelog": "Initial draft distributed for internal panel verification."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-40",
+      "title": "Theodolite Alignment and Contour Mapping Plans",
+      "author": "Tr. Uwera Solange",
+      "category": "Surveying",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/theodolite-alignment/240/320",
+      "description": "Technical manual handling vertical angle measurements, horizontal traverses, and recording topographic elevation data sheets accurately.",
+      "size": "5.8 MB",
+      "views": 141,
+      "downloads": 60,
+      "createdAt": "May 09, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 09, 2026",
+          "author": "Tr. Uwera Solange",
+          "changelog": "Approved manual set published online."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-41",
+      "title": "Wood Finishing, Staining, and Varnishing Techniques",
+      "author": "Tr. Ndahimana Faustin",
+      "category": "Carpentry & Joinery",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/wood-finishing/240/320",
+      "description": "Methods to prepare timber surfaces, choose appropriate chemical stains, oil finishes, and application guidelines using commercial workshop spray guns.",
+      "size": "4.1 MB",
+      "views": 128,
+      "downloads": 51,
+      "createdAt": "May 10, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 10, 2026",
+          "author": "Tr. Ndahimana Faustin",
+          "changelog": "Initial textbook printing copy published."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-11",
+          "author": "Hakizimana Jean",
+          "avatar": "https://ui-avatars.com/api/?name=Hakizimana+Jean&background=random&size=80",
+          "comment": "The safety steps on chemical stains disposal were highly professional.",
+          "rating": 4,
+          "timestamp": "May 16, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-42",
+      "title": "Table Setup and Food Service Standards",
+      "author": "Tr. Gakwaya Christian",
+      "category": "Hospitality & Culinary Arts",
+      "status": "Published",
+      "format": "Link",
+      "thumbnailUrl": "https://picsum.photos/seed/table-setup/240/320",
+      "description": "Interactive layout schemes demonstrating standard plate sizing setups, cutlery configurations, napkin folds, and beverage handling rules.",
+      "size": "1.1 MB",
+      "views": 174,
+      "downloads": 65,
+      "createdAt": "April 20, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "April 20, 2026",
+          "author": "Tr. Gakwaya Christian",
+          "changelog": "Reference link created for practical exam schedules."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-43",
+      "title": "Digital Electronics: Logic Gates and Truth Tables",
+      "author": "Eng. Tuyishime Jean Paul",
+      "category": "Electronics",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/logic-gates/240/320",
+      "description": "Foundational technical worksheets containing AND, OR, NOT, and XOR circuit layouts, IC chip numbers, and troubleshooting logic probe guides.",
+      "size": "3.5 MB",
+      "views": 298,
+      "downloads": 139,
+      "createdAt": "May 02, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 02, 2026",
+          "author": "Eng. Tuyishime Jean Paul",
+          "changelog": "Official Level 3 hardware module release."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-44",
+      "title": "Automobile Steering and Suspension Calibration",
+      "author": "Eng. Keza Diane",
+      "category": "Automobile Technology",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/steering-suspension/240/320",
+      "description": "Manual covering wheel alignment metrics, rack and pinion inspection, shock absorber replacement routines, and tracking system safety check setups.",
+      "size": "6.2 MB",
+      "views": 210,
+      "downloads": 95,
+      "createdAt": "May 18, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 18, 2026",
+          "author": "Eng. Keza Diane",
+          "changelog": "Approved documentation uploaded for secondary mechanical engineering students."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-45",
+      "title": "Scaffolding Safety and High-Level Masonry Work",
+      "author": "Tr. Murenzi Jean",
+      "category": "Building Construction",
+      "status": "Feedback Stage",
+      "format": "Slide",
+      "thumbnailUrl": "https://picsum.photos/seed/scaffolding-safety/240/320",
+      "description": "Slide guide mapping out secure frame setup, anchor point validations, load limits, and safety harness deployment regulations on work sites.",
+      "size": "5.1 MB",
+      "views": 88,
+      "downloads": 29,
+      "createdAt": "June 15, 2026",
+      "versions": [
+        {
+          "version": "v0.9",
+          "date": "June 15, 2026",
+          "author": "Tr. Murenzi Jean",
+          "changelog": "Initial draft distributed to local site safety inspectors."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-46",
+      "title": "Tailoring Calculations: Estimating Fabric and Trim",
+      "author": "Tr. Mutoni Marie",
+      "category": "Tailoring & Fashion Design",
+      "status": "Published",
+      "format": "Document",
+      "thumbnailUrl": "https://picsum.photos/seed/tailoring-calculations/240/320",
+      "description": "Practical worksheets covering pattern placement layouts on textiles to minimize material wastage and estimate total production costing variables.",
+      "size": "1.9 MB",
+      "views": 110,
+      "downloads": 43,
+      "createdAt": "May 27, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 27, 2026",
+          "author": "Tr. Mutoni Marie",
+          "changelog": "Standard costing tools shared online."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-47",
+      "title": "Wireless Access Point Configuration Basics",
+      "author": "Tr. Habimana Faustin",
+      "category": "Networking",
+      "status": "Published",
+      "format": "Video",
+      "thumbnailUrl": "https://picsum.photos/seed/wireless-config/240/320",
+      "description": "Video guide to setting up SSID broadcast, WPA2 pre-shared security keys, and DHCP reservations for small enterprise work groups.",
+      "size": "118 MB",
+      "views": 271,
+      "downloads": 114,
+      "createdAt": "May 19, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 19, 2026",
+          "author": "Tr. Habimana Faustin",
+          "changelog": "Finalized practical video lesson uploaded."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-12",
+          "author": "Kalinganire Jean",
+          "avatar": "https://ui-avatars.com/api/?name=Kalinganire+Jean&background=random&size=80",
+          "comment": "The step-by-step presentation on router interfaces was exceptionally clean.",
+          "rating": 5,
+          "timestamp": "May 24, 2026"
+        }
+      ]
+    },
+    {
+      "id": "res-48",
+      "title": "Cereal and Grain Storage Management Systems",
+      "author": "Tr. Umutoni Sandrine",
+      "category": "Food Processing",
+      "status": "Approved",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/cereal-storage/240/320",
+      "description": "Technical instructions on grain moisture content determination, silo temperature tracking, and pest control management guidelines following RSB quality metrics.",
+      "size": "4.3 MB",
+      "views": 133,
+      "downloads": 52,
+      "createdAt": "May 12, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 12, 2026",
+          "author": "Tr. Umutoni Sandrine",
+          "changelog": "Approved study resource for agricultural trade tracks."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-49",
+      "title": "2D Animation Basics with Open Source Tools",
+      "author": "Tr. Ishimwe Kevin",
+      "category": "Multimedia",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/animation-basics/240/320",
+      "description": "Introductory text covering timeline keyframing, onion skinning configurations, and step-by-step design paths for educational public service notices.",
+      "size": "5.6 MB",
+      "views": 218,
+      "downloads": 92,
+      "createdAt": "May 20, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 20, 2026",
+          "author": "Tr. Ishimwe Kevin",
+          "changelog": "Official digital textbook release."
+        }
+      ],
+      "feedbacks": []
+    },
+    {
+      "id": "res-50",
+      "title": "Introduction to Python and Simple Control Loops",
+      "author": "Eng. Bizimana Jean",
+      "category": "Software Development",
+      "status": "Published",
+      "format": "PDF",
+      "thumbnailUrl": "https://picsum.photos/seed/python-loops/240/320",
+      "description": "Basic Python script manuals tracking syntax indentations, mathematical logical blocks, string methods, and lists tracking data operations for Level 3 students.",
+      "size": "3.2 MB",
+      "views": 380,
+      "downloads": 195,
+      "createdAt": "May 07, 2026",
+      "versions": [
+        {
+          "version": "v1.0",
+          "date": "May 07, 2026",
+          "author": "Eng. Bizimana Jean",
+          "changelog": "Final structural document released for secondary programming labs."
+        }
+      ],
+      "feedbacks": [
+        {
+          "id": "feed-13",
+          "author": "Gasaro Sonia",
+          "avatar": "https://ui-avatars.com/api/?name=Gasaro+Sonia&background=random&size=80",
+          "comment": "Very student-friendly. The indentation error explanations are exactly what code beginners need.",
+          "rating": 5,
+          "timestamp": "May 15, 2026"
+        }
+      ]
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "rec-1",
+      "title": "Renewable Energy & Solar Installation Basics",
+      "author": "Eng. Mugisha Olivier",
+      "category": "Electronics",
+      "size": "6.3 MB"
+    },
+    {
+      "id": "rec-2",
+      "title": "Mobile App Development with Flutter",
+      "author": "Tr. Keza Diane",
+      "category": "Software Development",
+      "size": "9.8 MB"
+    },
+    {
+      "id": "rec-3",
+      "title": "Automobile Engine Maintenance Manual",
+      "author": "Tr. Nshuti Emmanuel",
+      "category": "Automobile Technology",
+      "size": "11.2 MB"
+    },
+    {
+      "id": "rec-4",
+      "title": "Bricklaying and Structural Masonry Guides",
+      "author": "Tr. Murenzi Jean",
+      "category": "Building Construction",
+      "size": "5.4 MB"
+    },
+    {
+      "id": "rec-5",
+      "title": "Basic Electronics Troubleshooting Handbook",
+      "author": "Eng. Tuyishime Jean Paul",
+      "category": "Electronics",
+      "size": "4.2 MB"
+    },
+    {
+      "id": "rec-6",
+      "title": "Introduction to Vector Graphics with Inkscape",
+      "author": "Tr. Ishimwe Kevin",
+      "category": "Multimedia",
+      "size": "7.1 MB"
+    }
+  ],
+  "activityLogs": [
+    {
+      "id": "log-1",
+      "text": "Eng. Niyonsenga Eric published \"Web Application Development with PHP & MySQL\"",
+      "time": "2 hours ago",
+      "resourceTitle": "Web Application Development with PHP & MySQL",
+      "type": "upload"
+    },
+    {
+      "id": "log-2",
+      "text": "Tr. Habimana Faustin shared networking slides for peer feedback",
+      "time": "Yesterday",
+      "resourceTitle": "Computer Networking & CCNA Fundamentals",
+      "type": "upload"
+    },
+    {
+      "id": "log-3",
+      "text": "Tr. Murenzi Jean uploaded new masonry guide documents for inspection",
+      "time": "2 days ago",
+      "resourceTitle": "Concrete Mixing and Mortar Application Guides",
+      "type": "upload"
+    },
+    {
+      "id": "log-4",
+      "text": "Eng. Gasana Bosco posted structural steel truss blueprints for welding labs",
+      "time": "3 days ago",
+      "resourceTitle": "Steel Truss Fabrication and Structural Welding",
+      "type": "upload"
+    },
+    {
+      "id": "log-5",
+      "text": "Tr. Umutoni Sandrine uploaded fruit processing manuals matching RSB updates",
+      "time": "5 days ago",
+      "resourceTitle": "Fruit Juice and Jam Production Standards",
+      "type": "upload"
+    },
+    {
+      "id": "log-6",
+      "text": "Tr. Mutoni Marie added updated sample measurements files for design templates",
+      "time": "1 week ago",
+      "resourceTitle": "Pattern Making and Garment Construction (Level 3)",
+      "type": "upload"
+    }
+  ]
+}
