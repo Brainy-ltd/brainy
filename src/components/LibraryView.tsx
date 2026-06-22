@@ -1048,7 +1048,8 @@ export function LibraryView() {
                 Staff Recommendations
               </h3>
               
-              <div className="space-y-3">
+              {/* ~8 cards visible by default; the rest are reachable by scrolling */}
+              <div className="space-y-3 max-h-[560px] overflow-y-auto pr-1">
                 {recommendedResources.map(rec => (
                   <div 
                     key={rec.id} 
