@@ -60,6 +60,41 @@ function loadStored<T>(key: string, sigKey: string, sig: string, fallback: T): T
   return fallback;
 }
 
+// Stable, category-relevant cover photos from the Unsplash CDN (reliable, no
+// API key). Keeps an Electronics resource showing electronics imagery, etc.
+const UNSPLASH_SUFFIX = '?auto=format&fit=crop&w=240&h=320&q=70';
+const CATEGORY_COVER: Record<string, string> = {
+  'Software Development': 'photo-1461749280684-dccba630e2f6',
+  'Networking': 'photo-1558494949-ef010cbdcc31',
+  'Electronics': 'photo-1517420704952-d9f39e95b43e',
+  'Multimedia': 'photo-1581291518857-4e27b48ff24e',
+  'Food Processing': 'photo-1556909212-d5b604d0c90d',
+  'Building Construction': 'photo-1503387762-592deb58ef4e',
+  'Automobile Technology': 'photo-1486262715619-67b85e0b08d3',
+  'Tailoring & Fashion Design': 'photo-1556905055-8f358a7a47b2',
+  'Welding & Metal Fabrication': 'photo-1504917595217-d4dc5ebe6122',
+  'Surveying': 'photo-1500382017468-9049fed747ef',
+  'Hospitality & Culinary Arts': 'photo-1556911220-bff31c812dba',
+  'Carpentry & Joinery': 'photo-1503602642458-232111445657',
+};
+
+// Clean branded placeholder used when a remote thumbnail fails to load, so a
+// card never renders a blank/broken image.
+function placeholderCover(category: string): string {
+  const label = encodeURIComponent(category || 'Resource');
+  return `https://placehold.co/240x320/e2e8f0/64748b?text=${label}`;
+}
+
+// Swaps a broken <img> to the branded placeholder once (guards against loops).
+function handleThumbnailError(
+  e: React.SyntheticEvent<HTMLImageElement>,
+  category: string,
+) {
+  const img = e.currentTarget;
+  img.onerror = null;
+  img.src = placeholderCover(category);
+}
+
 export function LibraryView() {
   // Core catalog states
   const [resources, setResources] = useState<ResourceItem[]>(() =>
@@ -206,11 +241,10 @@ export function LibraryView() {
     setIsUploadOpen(false);
   };
 
-  // Helper for mock thumbnails mapping category keywords to beautiful Unsplash prints
+  // Helper for mock thumbnails mapping each category to a relevant cover photo.
   const getPlaceholderThumbnail = (cat: string) => {
-    // Stable per-category placeholder cover that always renders.
-    const slug = (cat || 'resource').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    return `https://picsum.photos/seed/rtb-${slug}/240/320`;
+    const photo = CATEGORY_COVER[cat] || 'photo-1481627834876-b7833e8f5570';
+    return `https://images.unsplash.com/${photo}${UNSPLASH_SUFFIX}`;
   };
 
   // 2. SUBMIT FEEDBACK WORKFLOW (changes status to Feedback Stage or gathers feedback)
@@ -861,11 +895,13 @@ export function LibraryView() {
                     >
                       <div className="flex gap-3">
                         {/* Thumbnail View */}
-                        <img 
-                          src={res.thumbnailUrl} 
+                        <img
+                          src={res.thumbnailUrl}
                           alt={res.title}
                           className="w-14 h-18 object-cover rounded-lg bg-brand-light-gray border border-brand-border shrink-0 grayscale-15 group-hover:grayscale-0 transition-all"
                           referrerPolicy="no-referrer"
+                          loading="lazy"
+                          onError={(e) => handleThumbnailError(e, res.category)}
                         />
 
                         {/* Card Details */}
@@ -1089,11 +1125,12 @@ export function LibraryView() {
 
               {/* Top: Resource preview & inline Actions */}
               <div className="bg-brand-light-gray p-6 border-b border-brand-border flex flex-col md:flex-row gap-5 items-start">
-                <img 
-                  src={selectedResource.thumbnailUrl} 
+                <img
+                  src={selectedResource.thumbnailUrl}
                   alt={selectedResource.title}
                   className="w-20 h-28 object-cover rounded-lg border border-brand-border shadow-2xs shrink-0 bg-white"
                   referrerPolicy="no-referrer"
+                  onError={(e) => handleThumbnailError(e, selectedResource.category)}
                 />
 
                 <div className="flex-1 space-y-2.5 w-full">
@@ -1251,7 +1288,7 @@ export function LibraryView() {
                           <div key={f.id} className="bg-white border border-brand-border p-3.5 rounded-xl space-y-2 text-xs">
                             <div className="flex justify-between items-start">
                               <div className="flex items-center gap-2">
-                                <img src={f.avatar} alt={f.author} className="w-6 h-6 rounded-full object-cover border border-brand-border" referrerPolicy="no-referrer" />
+                                <img src={f.avatar} alt={f.author} className="w-6 h-6 rounded-full object-cover border border-brand-border" referrerPolicy="no-referrer" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = `https://placehold.co/80x80/e2e8f0/64748b?text=${encodeURIComponent((f.author || '?').charAt(0))}`; }} />
                                 <div>
                                   <span className="font-bold text-brand-text">{f.author}</span>
                                   <span className="text-[9px] text-brand-muted block font-mono">{f.timestamp}</span>
